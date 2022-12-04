@@ -11,4 +11,9 @@ class PageController extends Controller
     {
         return view('pages.dashboard');
     }
+
+    public function profile(Request $request): View
+    {
+        return view('pages.profile');
+    }
 }

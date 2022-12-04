@@ -17,6 +17,8 @@ Route::get('/', [\App\Http\Controllers\PageController::class, 'index'])->name('h
 
 Route::resource('user', \App\Http\Controllers\UserController::class)->except(['show', 'edit', 'create']);
 
+Route::get('profile', [\App\Http\Controllers\PageController::class, 'profile'])->name('profile.show');
+
 Route::prefix('transaction')->as('transaction.')->group(function() {
     Route::resource('incoming', \App\Http\Controllers\IncomingLetterController::class);
     Route::resource('outgoing', \App\Http\Controllers\OutgoingLetterController::class);
