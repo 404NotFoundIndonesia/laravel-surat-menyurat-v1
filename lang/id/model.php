@@ -19,6 +19,13 @@ return [
         ],
         'classification_code' => 'Kode Klasifikasi',
     ],
+    'disposition' => [
+        'to' => 'Penerima',
+        'content' => 'Isi Disposisi',
+        'status' => 'Sifat Status',
+        'note' => 'Catatan',
+        'due_date' => 'Tenggat Waktu',
+    ],
     'classification' => [
         'code' => 'Kode',
         'type' => 'Klasifikasi',

@@ -16,7 +16,7 @@
                 </div>
                 @if(\Illuminate\Support\Facades\Route::is('*.incoming.*'))
                     <div class="mx-3">
-                        <a href="#" class="btn btn-primary btn">{{ __('model.letter.dispose') }}</a>
+                        <a href="{{ route('transaction.disposition.index', 1) }}" class="btn btn-primary btn">{{ __('model.letter.dispose') }}</a>
                     </div>
                 @endif
                 <div class="dropdown d-inline-block">

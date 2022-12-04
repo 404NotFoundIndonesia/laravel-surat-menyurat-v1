@@ -19,6 +19,13 @@ return [
         ],
         'classification_code' => 'Classification Code',
     ],
+    'disposition' => [
+        'to' => 'Receiver',
+        'content' => 'Content',
+        'status' => 'Status',
+        'note' => 'Note',
+        'due_date' => 'Due Date',
+    ],
     'classification' => [
         'code' => 'Code',
         'type' => 'Type',
