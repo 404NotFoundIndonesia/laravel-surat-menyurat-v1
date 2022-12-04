@@ -35,10 +35,34 @@ return [
     'status' => [
         'status' => 'Sifat Status',
     ],
+    'user' => [
+        'name' => 'Nama',
+        'email' => 'Surel',
+        'password' => 'Kata Sandi',
+        'phone' => 'Nomor Telepon',
+        'role' => 'Peran',
+        'is_active' => 'Masih Aktif?',
+        'picture' => 'Foto Profil',
+        'admin' => 'Pengelola',
+        'staff' => 'Staf',
+        'active' => 'Aktif',
+        'nonactive' => 'Nonaktif',
+    ],
     'general' => [
         'created_at' => 'Dibuat pada',
         'updated_at' => 'Diperbarui pada',
         'deleted_at' => 'Dihapus pada',
         'created_by' => 'Dibuat oleh',
+    ],
+    'config' => [
+        'default_password' => 'Kata Sandi Bawaan',
+        'page_size' => 'Ukuran Halaman',
+        'app_name' => 'Nama Aplikasi',
+        'institution_name' => 'Nama Institusi',
+        'institution_address' => 'Alamat Institusi',
+        'institution_phone' => 'Nomor Telepon Institusi',
+        'institution_email' => 'Surel Institusi',
+        'language' => 'Bahasa',
+        'pic' => 'Penanggungjawab'
     ],
 ];

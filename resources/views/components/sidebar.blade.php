@@ -154,5 +154,12 @@
                 </li>
             </ul>
         </li>
+        <!-- User Management -->
+        <li class="menu-item {{ \Illuminate\Support\Facades\Route::is('user.*') ? 'active' : '' }}">
+            <a href="{{ route('user.index') }}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-user-pin"></i>
+                <div data-i18n="{{ __('menu.users') }}">{{ __('menu.users') }}</div>
+            </a>
+        </li>
     </ul>
 </aside>

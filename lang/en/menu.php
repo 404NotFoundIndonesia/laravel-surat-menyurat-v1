@@ -2,6 +2,7 @@
 
 return [
     'home' => 'Home',
+    'users' => 'Manage User',
     'transaction' => [
         'menu' => 'Transaction',
         'incoming_letter' => 'Incoming Letter',

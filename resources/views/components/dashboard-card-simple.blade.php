@@ -19,6 +19,9 @@
                         @elseif($label == __('dashboard.outgoing_letter'))
                             <a class="dropdown-item"
                                href="{{ route('transaction.outgoing.index') }}">{{ __('dashboard.view_more') }}</a>
+                        @elseif($label == __('dashboard.active_user'))
+                            <a class="dropdown-item"
+                               href="{{ route('user.index') }}">{{ __('dashboard.view_more') }}</a>
                         @endif
                     </div>
                 </div>

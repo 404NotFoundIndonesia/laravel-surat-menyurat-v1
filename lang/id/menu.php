@@ -2,6 +2,7 @@
 
 return [
     'home' => 'Beranda',
+    'users' => 'Kelola Pengguna',
     'transaction' => [
         'menu' => 'Transaksi Surat',
         'incoming_letter' => 'Surat Masuk',
