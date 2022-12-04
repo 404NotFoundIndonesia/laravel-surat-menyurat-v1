@@ -68,7 +68,7 @@
 
     <ul class="menu-inner py-1">
         <!-- Home -->
-        <li class="menu-item active">
+        <li class="menu-item {{ \Illuminate\Support\Facades\Route::is('home') ? 'active' : '' }}">
             <a href="{{ route('home') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
                 <div data-i18n="{{ __('menu.home') }}">{{ __('menu.home') }}</div>
@@ -78,14 +78,14 @@
         <li class="menu-header small text-uppercase">
             <span class="menu-header-text">{{ __('menu.header.main_menu') }}</span>
         </li>
-        <li class="menu-item">
+        <li class="menu-item {{ \Illuminate\Support\Facades\Route::is('transaction.*') ? 'active open' : '' }}">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-mail-send"></i>
                 <div data-i18n="{{ __('menu.transaction.menu') }}">{{ __('menu.transaction.menu') }}</div>
             </a>
             <ul class="menu-sub">
-                <li class="menu-item">
-                    <a href="pages-account-settings-account.html" class="menu-link">
+                <li class="menu-item {{ \Illuminate\Support\Facades\Route::is('transaction.incoming.*') ? 'active' : '' }}">
+                    <a href="{{ route('transaction.incoming.index') }}" class="menu-link">
                         <div data-i18n="{{ __('menu.transaction.incoming_letter') }}">{{ __('menu.transaction.incoming_letter') }}</div>
                     </a>
                 </li>
