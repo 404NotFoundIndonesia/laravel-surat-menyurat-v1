@@ -25,4 +25,16 @@ return [
         'main_menu' => 'Main',
         'other_menu' => 'Other',
     ],
+    'general' => [
+        'create' => 'Add New',
+        'view' => 'View More',
+        'edit' => 'Edit',
+        'delete' => 'Delete',
+        'print' => 'Print',
+        'upload' => 'Upload',
+        'download' => 'Download',
+        'save' => 'Save',
+        'update' => 'Update',
+        'cancel' => 'Cancel',
+    ],
 ];

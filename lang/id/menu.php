@@ -25,4 +25,16 @@ return [
         'main_menu' => 'Menu Utama',
         'other_menu' => 'Menu Lainnya',
     ],
+    'general' => [
+        'create' => 'Tambah Baru',
+        'view' => 'Lihat Detail',
+        'edit' => 'Edit',
+        'delete' => 'Hapus',
+        'print' => 'Cetak',
+        'upload' => 'Unggah',
+        'download' => 'Unduh',
+        'save' => 'Simpan',
+        'update' => 'Perbarui',
+        'cancel' => 'Batal',
+    ],
 ];
