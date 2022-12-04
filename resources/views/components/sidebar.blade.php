@@ -91,7 +91,7 @@
                 </li>
                 <li class="menu-item">
                     <a href="pages-account-settings-account.html" class="menu-link">
-                        <div data-i18n="{{ __('menu.transaction.outcoming_letter') }}">{{ __('menu.transaction.outcoming_letter') }}</div>
+                        <div data-i18n="{{ __('menu.transaction.outgoing_letter') }}">{{ __('menu.transaction.outgoing_letter') }}</div>
                     </a>
                 </li>
             </ul>
@@ -109,7 +109,7 @@
                 </li>
                 <li class="menu-item">
                     <a href="pages-account-settings-account.html" class="menu-link">
-                        <div data-i18n="{{ __('menu.agenda.outcoming_letter') }}">{{ __('menu.agenda.outcoming_letter') }}</div>
+                        <div data-i18n="{{ __('menu.agenda.outgoing_letter') }}">{{ __('menu.agenda.outgoing_letter') }}</div>
                     </a>
                 </li>
             </ul>
@@ -131,7 +131,7 @@
                 </li>
                 <li class="menu-item">
                     <a href="pages-account-settings-account.html" class="menu-link">
-                        <div data-i18n="{{ __('menu.gallery.outcoming_letter') }}">{{ __('menu.gallery.outcoming_letter') }}</div>
+                        <div data-i18n="{{ __('menu.gallery.outgoing_letter') }}">{{ __('menu.gallery.outgoing_letter') }}</div>
                     </a>
                 </li>
             </ul>

@@ -6,13 +6,13 @@
 
 @push('script')
     <script src="{{asset('sneat/vendor/libs/apex-charts/apexcharts.js')}}"></script>
-    <script !src="">
+    <script>
         const options = {
             chart: {
                 type: 'bar'
             },
             series: [{
-                name: 'letter transaction',
+                name: '{{ __('dashboard.letter_transaction') }}',
                 data: [50,75,25]
             }],
             stroke: {
@@ -21,8 +21,8 @@
             xaxis: {
                 categories: [
                     '{{ __('dashboard.incoming_letter') }}',
-                    '{{ __('dashboard.outcoming_letter') }}',
-                    '{{ __('dashboard.dispositioning_letter') }}',
+                    '{{ __('dashboard.outgoing_letter') }}',
+                    '{{ __('dashboard.disposition_letter') }}',
                 ],
             }
         }
@@ -95,7 +95,7 @@
                 </div>
                 <div class="col-lg-6 col-md-12 col-6 mb-4">
                     <x-dashboard-card-simple
-                        :label="__('dashboard.outcoming_letter')"
+                        :label="__('dashboard.outgoing_letter')"
                         value="75"
                         :daily="true"
                         color="danger"
@@ -105,7 +105,7 @@
                 </div>
                 <div class="col-lg-6 col-md-12 col-6 mb-4">
                     <x-dashboard-card-simple
-                        :label="__('dashboard.dispositioning_letter')"
+                        :label="__('dashboard.disposition_letter')"
                         value="25"
                         :daily="true"
                         color="primary"

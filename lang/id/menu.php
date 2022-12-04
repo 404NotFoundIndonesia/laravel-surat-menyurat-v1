@@ -5,20 +5,20 @@ return [
     'transaction' => [
         'menu' => 'Transaksi Surat',
         'incoming_letter' => 'Surat Masuk',
-        'outcoming_letter' => 'Surat Keluar',
-        'dispositioning_letter' => 'Surat Disposisi',
+        'outgoing_letter' => 'Surat Keluar',
+        'disposition_letter' => 'Surat Disposisi',
     ],
     'agenda' => [
         'menu' => 'Buku Agenda',
         'incoming_letter' => 'Surat Masuk',
-        'outcoming_letter' => 'Surat Keluar',
-        'dispositioning_letter' => 'Surat Disposisi',
+        'outgoing_letter' => 'Surat Keluar',
+        'disposition_letter' => 'Surat Disposisi',
     ],
     'gallery' => [
         'menu' => 'Galeri Surat',
         'incoming_letter' => 'Surat Masuk',
-        'outcoming_letter' => 'Surat Keluar',
-        'dispositioning_letter' => 'Surat Disposisi',
+        'outgoing_letter' => 'Surat Keluar',
+        'disposition_letter' => 'Surat Disposisi',
     ],
     'reference' => 'Referensi',
     'header' => [
