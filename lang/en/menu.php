@@ -42,5 +42,6 @@ return [
         'filter' => 'Filter',
         'empty' => 'There\'s No Data',
         'action' => 'Action',
+        'open' => 'Open',
     ],
 ];

@@ -42,5 +42,6 @@ return [
         'filter' => 'Saring',
         'empty' => 'Tidak Ada Data',
         'action' => 'Aksi',
+        'open' => 'Buka',
     ],
 ];

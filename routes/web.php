@@ -24,4 +24,8 @@ Route::prefix('agenda')->as('agenda.')->group(function() {
     Route::get('outgoing', [\App\Http\Controllers\OutgoingLetterController::class, 'agenda'])->name('outgoing');
 });
 
+Route::prefix('gallery')->as('gallery.')->group(function() {
+    Route::get('incoming', [\App\Http\Controllers\LetterGalleryController::class, 'incoming'])->name('incoming');
+});
+
 Route::get('/home', fn() => view('layout.main'));

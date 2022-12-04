@@ -118,14 +118,14 @@
         <li class="menu-header small text-uppercase">
             <span class="menu-header-text">{{ __('menu.header.other_menu') }}</span>
         </li>
-        <li class="menu-item">
+        <li class="menu-item {{ \Illuminate\Support\Facades\Route::is('gallery.*') ? 'active open' : '' }}">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-images"></i>
                 <div data-i18n="{{ __('menu.gallery.menu') }}">{{ __('menu.gallery.menu') }}</div>
             </a>
             <ul class="menu-sub">
-                <li class="menu-item">
-                    <a href="pages-account-settings-account.html" class="menu-link">
+                <li class="menu-item {{ \Illuminate\Support\Facades\Route::is('gallery.incoming') ? 'active' : '' }}">
+                    <a href="{{ route('gallery.incoming') }}" class="menu-link">
                         <div data-i18n="{{ __('menu.gallery.incoming_letter') }}">{{ __('menu.gallery.incoming_letter') }}</div>
                     </a>
                 </li>
