@@ -5,6 +5,11 @@
         :values="[__('menu.transaction.menu'), 'XII/SEP/09/XII/HAHA', __('menu.transaction.disposition_letter'), __('menu.general.create')]">
     </x-breadcrumb>
 
+    <div class="alert alert-primary alert-dismissible" role="alert">
+        {{ __('model.disposition.notice_me', ['reference_number' => 'XII/SEP/09/XII/HAHA']) }} <a href="{{ route('transaction.incoming.show', 1) }}" class="fw-bold">{{ __('menu.general.view') }}</a>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+
     <div class="card mb-4">
         <form action="{{ route('transaction.disposition.store', 1) }}" method="POST">
             @csrf

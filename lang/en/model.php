@@ -25,6 +25,7 @@ return [
         'status' => 'Status',
         'note' => 'Note',
         'due_date' => 'Due Date',
+        'notice_me' => 'Disposition letter for :reference_number.',
     ],
     'classification' => [
         'code' => 'Code',

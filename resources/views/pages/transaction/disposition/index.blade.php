@@ -6,6 +6,11 @@
         <a href="{{ route('transaction.disposition.create', 1) }}" class="btn btn-primary">{{ __('menu.general.create') }}</a>
     </x-breadcrumb>
 
+    <div class="alert alert-primary alert-dismissible" role="alert">
+        {{ __('model.disposition.notice_me', ['reference_number' => 'XII/SEP/09/XII/HAHA']) }} <a href="{{ route('transaction.incoming.show', 1) }}" class="fw-bold">{{ __('menu.general.view') }}</a>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+
     @for($i = 0; $i < 5; $i++)
         <x-disposition-card/>
     @endfor
