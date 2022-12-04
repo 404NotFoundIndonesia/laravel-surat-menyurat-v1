@@ -51,5 +51,6 @@ return [
     ],
     'auth' => [
         'login' => 'Masuk',
+        'email_placeholder' => 'Silakan masukkan surel Anda',
     ],
 ];
