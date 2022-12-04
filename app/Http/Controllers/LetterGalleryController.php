@@ -11,4 +11,9 @@ class LetterGalleryController extends Controller
     {
         return view('pages.gallery.incoming');
     }
+
+    public function outgoing(Request $request): View
+    {
+        return view('pages.gallery.outgoing');
+    }
 }
