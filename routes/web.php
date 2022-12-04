@@ -19,4 +19,8 @@ Route::prefix('transaction')->as('transaction.')->group(function() {
     Route::resource('outgoing', \App\Http\Controllers\OutgoingLetterController::class);
 });
 
+Route::prefix('agenda')->as('agenda.')->group(function() {
+    Route::get('incoming', [\App\Http\Controllers\IncomingLetterController::class, 'agenda'])->name('incoming');
+});
+
 Route::get('/home', fn() => view('layout.main'));

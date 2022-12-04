@@ -13,6 +13,9 @@ return [
         'incoming_letter' => 'Incoming Letter',
         'outgoing_letter' => 'Outgoing Letter',
         'disposition_letter' => 'Disposition Letter',
+        'filter_by' => 'Filter By',
+        'start_date' => 'Start Date',
+        'end_date' => 'End Date',
     ],
     'gallery' => [
         'menu' => 'Letter Gallery',
@@ -36,5 +39,8 @@ return [
         'save' => 'Save',
         'update' => 'Update',
         'cancel' => 'Cancel',
+        'filter' => 'Filter',
+        'empty' => 'There\'s No Data',
+        'action' => 'Action',
     ],
 ];
