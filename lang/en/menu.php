@@ -49,4 +49,7 @@ return [
         'action' => 'Action',
         'open' => 'Open',
     ],
+    'auth' => [
+        'login' => 'Login',
+    ],
 ];

@@ -39,7 +39,7 @@
                     <a class="nav-link active" href="javascript:void(0);">{{ __('navbar.profile.profile') }}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">{{ __('navbar.profile.settings') }}</a>
+                    <a class="nav-link" href="{{ route('settings.show') }}">{{ __('navbar.profile.settings') }}</a>
                 </li>
             </ul>
 

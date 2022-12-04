@@ -49,4 +49,7 @@ return [
         'action' => 'Aksi',
         'open' => 'Buka',
     ],
+    'auth' => [
+        'login' => 'Masuk',
+    ],
 ];

@@ -16,4 +16,9 @@ class PageController extends Controller
     {
         return view('pages.profile');
     }
+
+    public function settings(Request $request): View
+    {
+        return view('pages.setting');
+    }
 }

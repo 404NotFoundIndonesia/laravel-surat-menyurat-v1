@@ -60,7 +60,7 @@
                         </a>
                     </li>
                     <li>
-                        <a class="dropdown-item" href="#">
+                        <a class="dropdown-item" href="{{ route('settings.show') }}">
                             <i class="bx bx-cog me-2"></i>
                             <span class="align-middle">{{ __('navbar.profile.settings') }}</span>
                         </a>
