@@ -13,8 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('root');
+Route::get('/', [\App\Http\Controllers\PageController::class, 'index'])->name('home');
 
 Route::get('/home', fn() => view('layout.main'));
