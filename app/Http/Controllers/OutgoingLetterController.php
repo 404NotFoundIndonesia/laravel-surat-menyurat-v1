@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateLetterRequest;
 use App\Models\Letter;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Request;
 
 class OutgoingLetterController extends Controller
 {
@@ -18,6 +19,17 @@ class OutgoingLetterController extends Controller
     public function index(): View
     {
         return view('pages.transaction.outgoing.index');
+    }
+
+    /**
+     * Display a listing of the incoming letter agenda.
+     *
+     * @param Request $request
+     * @return View
+     */
+    public function agenda(Request $request): View
+    {
+        return view('pages.transaction.outgoing.agenda');
     }
 
     /**

@@ -24,6 +24,7 @@ class IncomingLetterController extends Controller
     /**
      * Display a listing of the incoming letter agenda.
      *
+     * @param Request $request
      * @return View
      */
     public function agenda(Request $request): View
