@@ -16,17 +16,14 @@
                 <dt class="col-sm-3">{{ __('model.letter.letter_date') }}</dt>
                 <dd class="col-sm-9">Senin, 22 September 2022</dd>
 
-                <dt class="col-sm-3">{{ __('model.letter.received_date') }}</dt>
-                <dd class="col-sm-9">Senin, 22 September 2022</dd>
-
                 <dt class="col-sm-3">{{ __('model.letter.reference_number') }}</dt>
                 <dd class="col-sm-9">XII/SEP/09/XII/HAHA</dd>
 
                 <dt class="col-sm-3">{{ __('model.letter.agenda_number') }}</dt>
                 <dd class="col-sm-9">030</dd>
 
-                <dt class="col-sm-3">{{ __('model.letter.from') }}</dt>
-                <dd class="col-sm-9">Presiden Joko Widodo</dd>
+                <dt class="col-sm-3">{{ __('model.letter.to') }}</dt>
+                <dd class="col-sm-9">Wakil Presiden Ma'ruf Amin</dd>
 
                 <dt class="col-sm-3">{{ __('model.general.created_by') }}</dt>
                 <dd class="col-sm-9">M. Iqbal Effendi</dd>

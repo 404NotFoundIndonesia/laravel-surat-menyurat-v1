@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [\App\Http\Controllers\PageController::class, 'index'])->name('home');
 Route::prefix('transaction')->as('transaction.')->group(function() {
     Route::resource('incoming', \App\Http\Controllers\IncomingLetterController::class);
+    Route::resource('outgoing', \App\Http\Controllers\OutgoingLetterController::class);
 });
 
 Route::get('/home', fn() => view('layout.main'));

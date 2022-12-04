@@ -89,8 +89,8 @@
                         <div data-i18n="{{ __('menu.transaction.incoming_letter') }}">{{ __('menu.transaction.incoming_letter') }}</div>
                     </a>
                 </li>
-                <li class="menu-item">
-                    <a href="pages-account-settings-account.html" class="menu-link">
+                <li class="menu-item {{ \Illuminate\Support\Facades\Route::is('transaction.outgoing.*') ? 'active' : '' }}">
+                    <a href="{{ route('transaction.outgoing.index') }}" class="menu-link">
                         <div data-i18n="{{ __('menu.transaction.outgoing_letter') }}">{{ __('menu.transaction.outgoing_letter') }}</div>
                     </a>
                 </li>
