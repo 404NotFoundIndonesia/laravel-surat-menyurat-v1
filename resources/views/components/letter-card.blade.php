@@ -3,8 +3,11 @@
         <div class="d-flex justify-content-between flex-column flex-sm-row">
             <div class="card-title">
                 <h5 class="text-nowrap mb-0 fw-bold">XII/SEP/09/XII/HAHA</h5>
-                <small class="text-black">Presiden Joko Widodo | <span class="text-secondary">{{ __('model.letter.agenda_number') }}:</span>
-                    030</small>
+                <small class="text-black">
+                    Presiden Joko Widodo |
+                    <span class="text-secondary">{{ __('model.letter.agenda_number') }}:</span> 030 |
+                    Administrasi
+                </small>
             </div>
             <div class="card-title d-flex flex-row">
                 <div class="d-inline-block mx-2 text-end text-black">

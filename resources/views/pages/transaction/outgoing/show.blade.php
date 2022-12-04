@@ -22,6 +22,12 @@
                 <dt class="col-sm-3">{{ __('model.letter.agenda_number') }}</dt>
                 <dd class="col-sm-9">030</dd>
 
+                <dt class="col-sm-3">{{ __('model.classification.code') }}</dt>
+                <dd class="col-sm-9">AB</dd>
+
+                <dt class="col-sm-3">{{ __('model.classification.type') }}</dt>
+                <dd class="col-sm-9">Administrasi</dd>
+
                 <dt class="col-sm-3">{{ __('model.letter.to') }}</dt>
                 <dd class="col-sm-9">Wakil Presiden Ma'ruf Amin</dd>
 

@@ -17,6 +17,12 @@ return [
             'disposed' => 'Disposed',
             'not_disposed' => 'Not Disposed',
         ],
+        'classification_code' => 'Classification Code',
+    ],
+    'classification' => [
+        'code' => 'Code',
+        'type' => 'Type',
+        'description' => 'Description',
     ],
     'general' => [
         'created_at' => 'Created At',

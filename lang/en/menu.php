@@ -23,7 +23,10 @@ return [
         'outgoing_letter' => 'Outgoing Letter',
         'disposition_letter' => 'Disposition Letter',
     ],
-    'reference' => 'Reference',
+    'reference' => [
+        'menu' => 'Reference',
+        'classification' => 'Classification',
+    ],
     'header' => [
         'main_menu' => 'Main',
         'other_menu' => 'Other',

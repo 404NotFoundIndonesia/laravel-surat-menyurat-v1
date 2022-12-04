@@ -17,6 +17,12 @@ return [
             'disposed' => 'Ada Disposisi',
             'not_disposed' => 'Belum Disposisi',
         ],
+        'classification_code' => 'Kode Klasifikasi',
+    ],
+    'classification' => [
+        'code' => 'Kode',
+        'type' => 'Klasifikasi',
+        'description' => 'Uraian',
     ],
     'general' => [
         'created_at' => 'Dibuat pada',

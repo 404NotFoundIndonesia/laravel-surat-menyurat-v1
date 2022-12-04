@@ -136,11 +136,18 @@
                 </li>
             </ul>
         </li>
-        <li class="menu-item">
-            <a href="cards-basic.html" class="menu-link">
+        <li class="menu-item {{ \Illuminate\Support\Facades\Route::is('reference.*') ? 'active open' : '' }}">
+            <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-analyse"></i>
-                <div data-i18n="{{ __('menu.reference') }}">{{ __('menu.reference') }}</div>
+                <div data-i18n="{{ __('menu.reference.menu') }}">{{ __('menu.reference.menu') }}</div>
             </a>
+            <ul class="menu-sub">
+                <li class="menu-item {{ \Illuminate\Support\Facades\Route::is('reference.classification.*') ? 'active' : '' }}">
+                    <a href="{{ route('reference.classification.index') }}" class="menu-link">
+                        <div data-i18n="{{ __('menu.reference.classification') }}">{{ __('menu.reference.classification') }}</div>
+                    </a>
+                </li>
+            </ul>
         </li>
     </ul>
 </aside>

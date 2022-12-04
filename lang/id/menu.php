@@ -23,7 +23,10 @@ return [
         'outgoing_letter' => 'Surat Keluar',
         'disposition_letter' => 'Surat Disposisi',
     ],
-    'reference' => 'Referensi',
+    'reference' => [
+        'menu' => 'Referensi',
+        'classification' => 'Klasifikasi Surat',
+    ],
     'header' => [
         'main_menu' => 'Menu Utama',
         'other_menu' => 'Menu Lainnya',

@@ -29,4 +29,8 @@ Route::prefix('gallery')->as('gallery.')->group(function() {
     Route::get('outgoing', [\App\Http\Controllers\LetterGalleryController::class, 'outgoing'])->name('outgoing');
 });
 
+Route::prefix('reference')->as('reference.')->group(function() {
+    Route::resource('classification', \App\Http\Controllers\ClassificationController::class)->except(['show', 'create', 'edit']);
+});
+
 Route::get('/home', fn() => view('layout.main'));

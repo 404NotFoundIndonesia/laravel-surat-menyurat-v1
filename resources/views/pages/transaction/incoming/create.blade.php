@@ -27,7 +27,15 @@
                 <div class="col-sm-12 col-12 col-md-12 col-lg-12">
                     <x-input-textarea-form name="description" :label="__('model.letter.description')"/>
                 </div>
-                <div class="col-sm-12 col-12 col-md-6 col-lg-8">
+                <div class="col-sm-12 col-12 col-md-6 col-lg-4">
+                    <div class="mb-3">
+                        <label for="classification_code" class="form-label">{{ __('model.letter.classification_code') }}</label>
+                        <select class="form-select" id="classification_code" name="classification_code">
+                            <option value="AB" selected="">Administrasi</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-12 col-md-6 col-lg-4">
                     <x-input-form name="note" :label="__('model.letter.note')"/>
                 </div>
                 <div class="col-sm-12 col-12 col-md-6 col-lg-4">
