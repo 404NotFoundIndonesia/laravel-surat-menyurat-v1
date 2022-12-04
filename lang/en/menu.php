@@ -26,6 +26,7 @@ return [
     'reference' => [
         'menu' => 'Reference',
         'classification' => 'Classification',
+        'status' => 'Status',
     ],
     'header' => [
         'main_menu' => 'Main',

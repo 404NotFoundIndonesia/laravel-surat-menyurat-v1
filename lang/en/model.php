@@ -24,6 +24,9 @@ return [
         'type' => 'Type',
         'description' => 'Description',
     ],
+    'status' => [
+        'status' => 'Status',
+    ],
     'general' => [
         'created_at' => 'Created At',
         'updated_at' => 'Updated At',

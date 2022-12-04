@@ -147,6 +147,11 @@
                         <div data-i18n="{{ __('menu.reference.classification') }}">{{ __('menu.reference.classification') }}</div>
                     </a>
                 </li>
+                <li class="menu-item {{ \Illuminate\Support\Facades\Route::is('reference.status.*') ? 'active' : '' }}">
+                    <a href="{{ route('reference.status.index') }}" class="menu-link">
+                        <div data-i18n="{{ __('menu.reference.status') }}">{{ __('menu.reference.status') }}</div>
+                    </a>
+                </li>
             </ul>
         </li>
     </ul>

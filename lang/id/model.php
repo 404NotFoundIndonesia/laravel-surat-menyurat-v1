@@ -24,6 +24,9 @@ return [
         'type' => 'Klasifikasi',
         'description' => 'Uraian',
     ],
+    'status' => [
+        'status' => 'Sifat Status',
+    ],
     'general' => [
         'created_at' => 'Dibuat pada',
         'updated_at' => 'Diperbarui pada',

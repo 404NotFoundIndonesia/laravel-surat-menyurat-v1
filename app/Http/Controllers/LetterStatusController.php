@@ -5,82 +5,52 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreLetterStatusRequest;
 use App\Http\Requests\UpdateLetterStatusRequest;
 use App\Models\LetterStatus;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 
 class LetterStatusController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return View
      */
-    public function index()
+    public function index(): \Illuminate\Contracts\View\View
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return view('pages.reference.status');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreLetterStatusRequest  $request
-     * @return \Illuminate\Http\Response
+     * @param StoreLetterStatusRequest $request
+     * @return RedirectResponse
      */
-    public function store(StoreLetterStatusRequest $request)
+    public function store(StoreLetterStatusRequest $request): RedirectResponse
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\LetterStatus  $letterStatus
-     * @return \Illuminate\Http\Response
-     */
-    public function show(LetterStatus $letterStatus)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\LetterStatus  $letterStatus
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(LetterStatus $letterStatus)
-    {
-        //
+        return redirect()->route('reference.status.index');
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateLetterStatusRequest  $request
-     * @param  \App\Models\LetterStatus  $letterStatus
-     * @return \Illuminate\Http\Response
+     * @param UpdateLetterStatusRequest $request
+     * @param LetterStatus $status
+     * @return RedirectResponse
      */
-    public function update(UpdateLetterStatusRequest $request, LetterStatus $letterStatus)
+    public function update(UpdateLetterStatusRequest $request, LetterStatus $status): RedirectResponse
     {
-        //
+        return back();
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\LetterStatus  $letterStatus
-     * @return \Illuminate\Http\Response
+     * @param LetterStatus $status
+     * @return RedirectResponse
      */
-    public function destroy(LetterStatus $letterStatus)
+    public function destroy(LetterStatus $status): RedirectResponse
     {
-        //
+        return back();
     }
 }

@@ -26,6 +26,7 @@ return [
     'reference' => [
         'menu' => 'Referensi',
         'classification' => 'Klasifikasi Surat',
+        'status' => 'Status Surat',
     ],
     'header' => [
         'main_menu' => 'Menu Utama',
