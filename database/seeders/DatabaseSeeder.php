@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             ConfigSeeder::class,
             LetterStatusSeeder::class,
+            ClassificationSeeder::class,
         ]);
     }
 }
