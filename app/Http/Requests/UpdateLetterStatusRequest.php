@@ -11,9 +11,16 @@ class UpdateLetterStatusRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
-        return false;
+        return true;
+    }
+
+    public function attributes(): array
+    {
+        return [
+            'status' => __('model.status.status'),
+        ];
     }
 
     /**
@@ -21,10 +28,10 @@ class UpdateLetterStatusRequest extends FormRequest
      *
      * @return array<string, mixed>
      */
-    public function rules()
+    public function rules(): array
     {
         return [
-            //
+            'status' => ['required'],
         ];
     }
 }
