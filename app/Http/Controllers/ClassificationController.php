@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateClassificationRequest;
 use App\Models\Classification;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class ClassificationController extends Controller
@@ -14,11 +15,15 @@ class ClassificationController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @return View
      */
-    public function index(): \Illuminate\Contracts\View\View
+    public function index(Request $request): View
     {
-        return view('pages.reference.classification');
+        return view('pages.reference.classification', [
+            'data' => Classification::render($request->search),
+            'search' => $request->search,
+        ]);
     }
 
     /**
@@ -29,7 +34,12 @@ class ClassificationController extends Controller
      */
     public function store(StoreClassificationRequest $request): RedirectResponse
     {
-        return redirect()->route('reference.classification.index');
+        try {
+            Classification::create($request->validated());
+            return back()->with('success', __('menu.general.success'));
+        } catch (\Throwable $exception) {
+            return back()->with('error', $exception->getMessage());
+        }
     }
 
     /**
@@ -39,9 +49,14 @@ class ClassificationController extends Controller
      * @param Classification $classification
      * @return RedirectResponse
      */
-    public function update(UpdateClassificationRequest $request, Classification $classification): \Illuminate\Http\RedirectResponse
+    public function update(UpdateClassificationRequest $request, Classification $classification): RedirectResponse
     {
-        return back();
+        try {
+            $classification->update($request->validated());
+            return back()->with('success', __('menu.general.success'));
+        } catch (\Throwable $exception) {
+            return back()->with('error', $exception->getMessage());
+        }
     }
 
     /**
@@ -50,8 +65,13 @@ class ClassificationController extends Controller
      * @param Classification $classification
      * @return RedirectResponse
      */
-    public function destroy(Classification $classification): \Illuminate\Http\RedirectResponse
+    public function destroy(Classification $classification): RedirectResponse
     {
-        return back();
+        try {
+            $classification->delete();
+            return back()->with('success', __('menu.general.success'));
+        } catch (\Throwable $exception) {
+            return back()->with('error', $exception->getMessage());
+        }
     }
 }

@@ -1,5 +1,18 @@
 @extends('layout.main')
 
+@push('script')
+    <script>
+        $(document).on('click', '.btn-edit', function () {
+            const id = $(this).data('id');
+            $('#editModal form').attr('action', '{{ route('reference.classification.index') }}/' + id);
+            $('#editModal input:hidden#id').val(id);
+            $('#editModal input#code').val($(this).data('code'));
+            $('#editModal input#type').val($(this).data('type'));
+            $('#editModal input#description').val($(this).data('description'));
+        });
+    </script>
+@endpush
+
 @section('content')
     <x-breadcrumb
         :values="[__('menu.reference.menu'), __('menu.reference.classification')]">
@@ -23,17 +36,32 @@
                     <th>{{ __('menu.general.action') }}</th>
                 </tr>
                 </thead>
-                @if(true)
+                @if($data)
                     <tbody>
-                    <tr>
-                        <td><i class="fab fa-angular fa-lg text-danger"></i> <strong>AB</strong></td>
-                        <td>Administrasi</td>
-                        <td>Penggunaan untuk ini dan itu</td>
-                        <td>
-                            <button class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#editModal">{{ __('menu.general.edit') }}</button>
-                            <button class="btn btn-danger btn-sm">{{ __('menu.general.delete') }}</button>
-                        </td>
-                    </tr>
+                    @foreach($data as $classification)
+                        <tr>
+                            <td>{{ $classification->code }}</td>
+                            <td>{{ $classification->type }}</td>
+                            <td>{{ $classification->description }}</td>
+                            <td>
+                                <button class="btn btn-info btn-sm btn-edit"
+                                        data-id="{{ $classification->id }}"
+                                        data-code="{{ $classification->code }}"
+                                        data-type="{{ $classification->type }}"
+                                        data-description="{{ $classification->description }}"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#editModal">
+                                    {{ __('menu.general.edit') }}
+                                </button>
+                                <form action="{{ route('reference.classification.destroy', $classification) }}" class="d-inline" method="post">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button class="btn btn-danger btn-sm btn-delete"
+                                            type="button">{{ __('menu.general.delete') }}</button>
+                                </form>
+                            </td>
+                        </tr>
+                    @endforeach
                     </tbody>
                 @else
                     <tbody>
@@ -56,36 +84,13 @@
         </div>
     </div>
 
-    <nav aria-label="Page navigation">
-        <ul class="pagination justify-content-center">
-            <li class="page-item prev">
-                <a class="page-link" href="javascript:void(0);"><i class="tf-icon bx bx-chevrons-left"></i></a>
-            </li>
-            <li class="page-item">
-                <a class="page-link" href="javascript:void(0);">1</a>
-            </li>
-            <li class="page-item">
-                <a class="page-link" href="javascript:void(0);">2</a>
-            </li>
-            <li class="page-item active">
-                <a class="page-link" href="javascript:void(0);">3</a>
-            </li>
-            <li class="page-item">
-                <a class="page-link" href="javascript:void(0);">4</a>
-            </li>
-            <li class="page-item">
-                <a class="page-link" href="javascript:void(0);">5</a>
-            </li>
-            <li class="page-item next">
-                <a class="page-link" href="javascript:void(0);"><i class="tf-icon bx bx-chevrons-right"></i></a>
-            </li>
-        </ul>
-    </nav>
+    {!! $data->appends(['search' => $search])->links() !!}
 
     <!-- Create Modal -->
     <div class="modal fade" id="createModal" data-bs-backdrop="static" tabindex="-1">
         <div class="modal-dialog">
-            <form class="modal-content">
+            <form class="modal-content" method="post" action="{{ route('reference.classification.store') }}">
+                @csrf
                 <div class="modal-header">
                     <h5 class="modal-title" id="createModalTitle">{{ __('menu.general.create') }}</h5>
                     <button
@@ -104,7 +109,7 @@
                     <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
                         {{ __('menu.general.cancel') }}
                     </button>
-                    <button type="button" class="btn btn-primary">{{ __('menu.general.save') }}</button>
+                    <button type="submit" class="btn btn-primary">{{ __('menu.general.save') }}</button>
                 </div>
             </form>
         </div>
@@ -113,7 +118,9 @@
     <!-- Edit Modal -->
     <div class="modal fade" id="editModal" data-bs-backdrop="static" tabindex="-1">
         <div class="modal-dialog">
-            <form class="modal-content">
+            <form class="modal-content" method="post" action="">
+                @csrf
+                @method('PUT')
                 <div class="modal-header">
                     <h5 class="modal-title" id="editModalTitle">{{ __('menu.general.edit') }}</h5>
                     <button
@@ -124,6 +131,7 @@
                     ></button>
                 </div>
                 <div class="modal-body">
+                    <input type="hidden" name="id" id="id" value="">
                     <x-input-form name="code" :label="__('model.classification.code')"/>
                     <x-input-form name="type" :label="__('model.classification.type')"/>
                     <x-input-form name="description" :label="__('model.classification.description')"/>
@@ -132,7 +140,7 @@
                     <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
                         {{ __('menu.general.cancel') }}
                     </button>
-                    <button type="button" class="btn btn-primary">{{ __('menu.general.save') }}</button>
+                    <button type="submit" class="btn btn-primary">{{ __('menu.general.update') }}</button>
                 </div>
             </form>
         </div>

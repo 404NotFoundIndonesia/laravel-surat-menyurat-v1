@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateClassificationRequest extends FormRequest
 {
@@ -11,9 +12,18 @@ class UpdateClassificationRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
-        return false;
+        return true;
+    }
+
+    public function attributes(): array
+    {
+        return [
+            'code' => __('model.classification.code'),
+            'type' => __('model.classification.type'),
+            'description' => __('model.classification.description'),
+        ];
     }
 
     /**
@@ -21,10 +31,12 @@ class UpdateClassificationRequest extends FormRequest
      *
      * @return array<string, mixed>
      */
-    public function rules()
+    public function rules(): array
     {
         return [
-            //
+            'code' => ['required', Rule::unique('classifications')->ignore($this->id)],
+            'type' => ['required'],
+            'description'=> ['nullable'],
         ];
     }
 }
