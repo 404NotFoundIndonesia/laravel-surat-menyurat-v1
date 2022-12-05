@@ -79,10 +79,13 @@
                         <div class="dropdown-divider"></div>
                     </li>
                     <li>
-                        <a class="dropdown-item" href="{{ route('login') }}">
-                            <i class="bx bx-power-off me-2"></i>
-                            <span class="align-middle">{{ __('navbar.profile.logout') }}</span>
-                        </a>
+                        <form action="{{ route('logout') }}" method="post">
+                            @csrf
+                            <button class="dropdown-item cursor-pointer">
+                                <i class="bx bx-power-off me-2"></i>
+                                <span class="align-middle">{{ __('navbar.profile.logout') }}</span>
+                            </button>
+                        </form>
                     </li>
                 </ul>
             </li>
