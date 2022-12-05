@@ -35,7 +35,13 @@ class OutgoingLetterController extends Controller
      */
     public function agenda(Request $request): View
     {
-        return view('pages.transaction.outgoing.agenda');
+        return view('pages.transaction.outgoing.agenda', [
+            'data' => Letter::outgoing()->agenda($request->since, $request->until, $request->filter)->render($request->search),
+            'search' => $request->search,
+            'since' => $request->since,
+            'until' => $request->until,
+            'filter' => $request->filter,
+        ]);
     }
 
     /**

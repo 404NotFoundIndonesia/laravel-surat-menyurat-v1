@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\DB;
 
 class Letter extends Model
 {
@@ -108,6 +109,14 @@ class Letter extends Model
             ->appends([
                 'search' => $search,
             ]);
+    }
+
+    public function scopeAgenda($query, $since, $until, $filter)
+    {
+        return $query
+            ->when($since && $until && $filter, function ($query, $condition) use ($since, $until, $filter) {
+                return $query->whereBetween(DB::raw('DATE(' . $filter . ')'), [$since, $until]);
+            });
     }
 
     /**
