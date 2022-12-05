@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\LetterType;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -35,6 +36,31 @@ class Letter extends Model
         'letter_date' => 'date',
         'received_date' => 'date',
     ];
+
+    public function scopeType($query, LetterType $type)
+    {
+        return $query->where('type', $type->type());
+    }
+
+    public function scopeIncoming($query)
+    {
+        return $this->scopeType($query, LetterType::INCOMING);
+    }
+
+    public function scopeOutgoing($query)
+    {
+        return $this->scopeType($query, LetterType::OUTGOING);
+    }
+
+    public function scopeToday($query)
+    {
+        return $query->whereDate('created_at', now());
+    }
+
+    public function scopeYesterday($query)
+    {
+        return $query->whereDate('created_at', now()->addDays(-1));
+    }
 
     /**
      * @return BelongsTo

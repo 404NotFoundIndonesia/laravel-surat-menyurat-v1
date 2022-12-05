@@ -20,6 +20,16 @@ class Disposition extends Model
         'user_id'
     ];
 
+    public function scopeToday($query)
+    {
+        return $query->whereDate('created_at', now());
+    }
+
+    public function scopeYesterday($query)
+    {
+        return $query->whereDate('created_at', now()->addDays(-1));
+    }
+
     /**
      * @return BelongsTo
      */

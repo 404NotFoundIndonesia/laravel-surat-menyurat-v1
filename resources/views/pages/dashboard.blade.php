@@ -13,7 +13,7 @@
             },
             series: [{
                 name: '{{ __('dashboard.letter_transaction') }}',
-                data: [50,75,25]
+                data: [{{ $todayIncomingLetter }},{{ $todayOutgoingLetter }},{{ $todayDispositionLetter }}]
             }],
             stroke: {
                 curve: 'smooth',
@@ -40,9 +40,9 @@
                 <div class="d-flex align-items-end row">
                     <div class="col-sm-7">
                         <div class="card-body">
-                            <h4 class="card-title text-primary">{{ __('dashboard.greeting.morning', ['name' => 'iqbal']) }}</h4>
+                            <h4 class="card-title text-primary">{{ $greeting }}</h4>
                             <p class="mb-4">
-                                Senin, 4 Desember 2022
+                                {{ $currentDate }}
                             </p>
                             <p style="font-size: smaller" class="text-gray">*) {{ __('dashboard.today_report') }}</p>
                         </div>
@@ -68,9 +68,16 @@
                                     <span class="badge bg-label-warning rounded-pill">{{ __('dashboard.today') }}</span>
                                 </div>
                                 <div class="mt-sm-auto">
-                                    <small class="text-success text-nowrap fw-semibold"><i
-                                            class="bx bx-chevron-up"></i> 68.2%</small>
-                                    <h3 class="mb-0 display-4">150</h3>
+                                    @if($percentageLetterTransaction > 0)
+                                    <small class="text-success text-nowrap fw-semibold">
+                                        <i class="bx bx-chevron-up"></i> {{ $percentageLetterTransaction }}%
+                                    </small>
+                                    @elseif($percentageLetterTransaction < 0)
+                                        <small class="text-danger text-nowrap fw-semibold">
+                                            <i class="bx bx-chevron-down"></i> {{ $percentageLetterTransaction }}%
+                                        </small>
+                                    @endif
+                                    <h3 class="mb-0 display-4">{{ $todayLetterTransaction }}</h3>
                                 </div>
                             </div>
                             <div id="profileReportChart" style="min-height: 80px; width: 80%">
@@ -86,37 +93,37 @@
                 <div class="col-lg-6 col-md-12 col-6 mb-4">
                     <x-dashboard-card-simple
                         :label="__('dashboard.incoming_letter')"
-                        value="50"
+                        :value="$todayIncomingLetter"
                         :daily="true"
                         color="success"
                         icon="bx-envelope"
-                        :percentage="-72.80"
+                        :percentage="$percentageIncomingLetter"
                     />
                 </div>
                 <div class="col-lg-6 col-md-12 col-6 mb-4">
                     <x-dashboard-card-simple
                         :label="__('dashboard.outgoing_letter')"
-                        value="75"
+                        :value="$todayOutgoingLetter"
                         :daily="true"
                         color="danger"
                         icon="bx-envelope"
-                        :percentage="-72.80"
+                        :percentage="$percentageOutgoingLetter"
                     />
                 </div>
                 <div class="col-lg-6 col-md-12 col-6 mb-4">
                     <x-dashboard-card-simple
                         :label="__('dashboard.disposition_letter')"
-                        value="25"
+                        :value="$todayDispositionLetter"
                         :daily="true"
                         color="primary"
                         icon="bx-envelope"
-                        :percentage="2.80"
+                        :percentage="$percentageDispositionLetter"
                     />
                 </div>
                 <div class="col-lg-6 col-md-12 col-6 mb-4">
                     <x-dashboard-card-simple
                         :label="__('dashboard.active_user')"
-                        value="50"
+                        :value="$activeUser"
                         :daily="false"
                         color="info"
                         icon="bx-user-check"
