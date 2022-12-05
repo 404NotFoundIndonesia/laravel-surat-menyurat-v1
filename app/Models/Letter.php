@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enums\LetterType;
+use App\Enums\Config as ConfigEnum;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -100,12 +101,11 @@ class Letter extends Model
 
     public function scopeRender($query, $search)
     {
-        $pageSize = Config::code(\App\Enums\Config::PAGE_SIZE)->first();
         return $query
             ->with(['attachments', 'classification'])
             ->search($search)
             ->latest('letter_date')
-            ->paginate($pageSize->value)
+            ->paginate(Config::getValueByCode(ConfigEnum::PAGE_SIZE))
             ->appends([
                 'search' => $search,
             ]);

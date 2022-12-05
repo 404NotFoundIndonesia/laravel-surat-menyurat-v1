@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\Config as ConfigEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -26,10 +27,9 @@ class Classification extends Model
 
     public function scopeRender($query, $search)
     {
-        $pageSize = Config::code(\App\Enums\Config::PAGE_SIZE)->first();
         return $query
             ->search($search)
-            ->paginate($pageSize->value)
+            ->paginate(Config::getValueByCode(ConfigEnum::PAGE_SIZE))
             ->appends([
                 'search' => $search,
             ]);

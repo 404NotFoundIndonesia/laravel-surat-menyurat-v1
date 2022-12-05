@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\Config as ConfigEnum;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Models\Config;
@@ -38,7 +39,7 @@ class UserController extends Controller
     {
         try {
             $newUser = $request->validated();
-            $newUser['password'] = Hash::make(Config::code(\App\Enums\Config::DEFAULT_PASSWORD)->first());
+            $newUser['password'] = Hash::make(Config::getValueByCode(ConfigEnum::DEFAULT_PASSWORD));
             User::create($newUser);
             return back()->with('success', __('menu.general.success'));
         } catch (\Throwable $exception) {
@@ -59,7 +60,7 @@ class UserController extends Controller
             $newUser = $request->validated();
             $newUser['is_active'] = isset($newUser['is_active']);
             if ($request->reset_password)
-                $newUser['password'] = Hash::make(Config::code(\App\Enums\Config::DEFAULT_PASSWORD)->first());
+                $newUser['password'] = Hash::make(Config::getValueByCode(ConfigEnum::DEFAULT_PASSWORD));
             $user->update($newUser);
             return back()->with('success', __('menu.general.success'));
         } catch (\Throwable $exception) {

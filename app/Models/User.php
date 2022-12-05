@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Enums\Role;
+use App\Enums\Config as ConfigEnum;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -88,11 +89,10 @@ class User extends Authenticatable
 
     public function scopeRender($query, $search)
     {
-        $pageSize = Config::code(\App\Enums\Config::PAGE_SIZE)->first();
         return $query
             ->search($search)
             ->role(Role::STAFF)
-            ->paginate($pageSize->value)
+            ->paginate(Config::getValueByCode(ConfigEnum::PAGE_SIZE))
             ->appends([
                 'search' => $search,
             ]);
