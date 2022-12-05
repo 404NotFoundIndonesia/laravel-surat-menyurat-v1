@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Enums\Role;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -68,5 +69,32 @@ class User extends Authenticatable
     public function scopeActive($query)
     {
         return $query->where('is_active', true);
+    }
+
+    public function scopeRole($query, Role $role)
+    {
+        return $query->where('role', $role->status());
+    }
+
+    public function scopeSearch($query, $search)
+    {
+        return $query->when($search, function($query, $find) {
+            return $query
+                ->where('name', 'LIKE', $find . '%')
+                ->orWhere('phone', $find)
+                ->orWhere('email', $find);
+        });
+    }
+
+    public function scopeRender($query, $search)
+    {
+        $pageSize = Config::code(\App\Enums\Config::PAGE_SIZE)->first();
+        return $query
+            ->search($search)
+            ->role(Role::STAFF)
+            ->paginate($pageSize->value)
+            ->appends([
+                'search' => $search,
+            ]);
     }
 }

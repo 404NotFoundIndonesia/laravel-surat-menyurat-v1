@@ -8,6 +8,7 @@ use App\Models\Config;
 use App\Models\User;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use TheSeer\Tokenizer\Exception;
 
@@ -16,12 +17,14 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @return View
      */
-    public function index(): View
+    public function index(Request $request): View
     {
         return view('pages.user', [
-            'data' => User::all(),
+            'data' => User::render($request->search),
+            'search' => $request->search,
         ]);
     }
 
