@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             LetterStatusSeeder::class,
             ClassificationSeeder::class,
             LetterSeeder::class,
+            DispositionSeeder::class,
         ]);
     }
 }

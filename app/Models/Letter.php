@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Letter extends Model
 {
@@ -48,6 +49,14 @@ class Letter extends Model
      */
     public function classification(): BelongsTo
     {
-        return $this->belongsTo(Classification::class, 'code', 'classification_code');
+        return $this->belongsTo(Classification::class, 'classification_code', 'code');
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function dispositions(): HasMany
+    {
+        return $this->hasMany(Disposition::class, 'letter_id', 'id');
     }
 }
