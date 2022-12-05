@@ -60,7 +60,8 @@ class User extends Authenticatable
                 if ($value) return $value;
 
                 $url = 'https://ui-avatars.com/api/?background=6D67E4&name=';
-                return $url . str_replace(' ', '+', $this->name);
+                $name = str_replace(' ', '+', $this->name);
+                return $url . $name;
             },
         );
     }
