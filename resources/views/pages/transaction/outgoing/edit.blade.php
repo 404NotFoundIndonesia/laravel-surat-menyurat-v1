@@ -2,36 +2,57 @@
 
 @section('content')
     <x-breadcrumb
-        :values="[__('menu.transaction.menu'), __('menu.transaction.incoming_letter'), __('menu.general.edit')]">
+        :values="[__('menu.transaction.menu'), __('menu.transaction.outgoing_letter'), __('menu.general.edit')]">
     </x-breadcrumb>
 
     <div class="card mb-4">
-        <form action="{{ route('transaction.outgoing.update', 1) }}" method="POST">
+        <form action="{{ route('transaction.outgoing.update', $data) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
             <div class="card-body row">
+                <input type="hidden" name="id" value="{{ $data->id }}">
+                <input type="hidden" name="type" value="{{ $data->type }}">
                 <div class="col-sm-12 col-12 col-md-6 col-lg-4">
-                    <x-input-form name="reference_number" :label="__('model.letter.reference_number')"/>
+                    <x-input-form :value="$data->reference_number" name="reference_number"
+                                  :label="__('model.letter.reference_number')"/>
                 </div>
                 <div class="col-sm-12 col-12 col-md-6 col-lg-4">
-                    <x-input-form name="to" :label="__('model.letter.to')"/>
+                    <x-input-form :value="$data->to" name="to" :label="__('model.letter.to')"/>
                 </div>
                 <div class="col-sm-12 col-12 col-md-6 col-lg-4">
-                    <x-input-form name="agenda_number" :label="__('model.letter.agenda_number')"/>
+                    <x-input-form :value="$data->agenda_number" name="agenda_number"
+                                  :label="__('model.letter.agenda_number')"/>
                 </div>
                 <div class="col-sm-12 col-12 col-md-6 col-lg-12">
-                    <x-input-form name="letter_date" :label="__('model.letter.letter_date')" type="date"/>
+                    <x-input-form :value="date('Y-m-d', strtotime($data->letter_date))" name="letter_date" :label="__('model.letter.letter_date')"
+                                  type="date"/>
                 </div>
                 <div class="col-sm-12 col-12 col-md-12 col-lg-12">
-                    <x-input-textarea-form name="description" :label="__('model.letter.description')"/>
+                    <x-input-textarea-form :value="$data->description" name="description"
+                                           :label="__('model.letter.description')"/>
                 </div>
-                <div class="col-sm-12 col-12 col-md-6 col-lg-8">
-                    <x-input-form name="note" :label="__('model.letter.note')"/>
+                <div class="col-sm-12 col-12 col-md-6 col-lg-4">
+                    <div class="mb-3">
+                        <label for="classification_code"
+                               class="form-label">{{ __('model.letter.classification_code') }}</label>
+                        <select class="form-select" id="classification_code" name="classification_code">
+                            @foreach($classifications as $classification)
+                                <option
+                                    @selected(old('classification_code', $data->classification_code) == $classification->code)
+                                    value="{{ $classification->code }}"
+                                >{{ $classification->type }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-12 col-md-6 col-lg-4">
+                    <x-input-form :value="$data->note ?? ''" name="note" :label="__('model.letter.note')"/>
                 </div>
                 <div class="col-sm-12 col-12 col-md-6 col-lg-4">
                     <div class="mb-3">
                         <label for="images" class="form-label">{{ __('model.letter.attachment') }}</label>
-                        <input type="file" class="form-control @error('images') is-invalid @enderror" id="images" name="images[]" multiple />
+                        <input type="file" class="form-control @error('images') is-invalid @enderror" id="images"
+                               name="images[]" multiple/>
                         <span class="error invalid-feedback">{{ $errors->first('images') }}</span>
                     </div>
                     <ul class="list-group">

@@ -2,13 +2,15 @@
 
 @section('content')
     <x-breadcrumb
-        :values="[__('menu.transaction.menu'), __('menu.transaction.incoming_letter'), __('menu.general.create')]">
+        :values="[__('menu.transaction.menu'), __('menu.transaction.outgoing_letter'), __('menu.general.create')]">
     </x-breadcrumb>
 
     <div class="card mb-4">
-        <form action="{{ route('transaction.incoming.store') }}" method="POST">
+        {{ $errors }}
+        <form action="{{ route('transaction.outgoing.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="card-body row">
+                <input type="hidden" name="type" value="outgoing">
                 <div class="col-sm-12 col-12 col-md-6 col-lg-4">
                     <x-input-form name="reference_number" :label="__('model.letter.reference_number')"/>
                 </div>
@@ -28,7 +30,9 @@
                     <div class="mb-3">
                         <label for="classification_code" class="form-label">{{ __('model.letter.classification_code') }}</label>
                         <select class="form-select" id="classification_code" name="classification_code">
-                            <option value="AB" selected="">Administrasi</option>
+                            @foreach($classifications as $classification)
+                                <option value="{{ $classification->code }}">{{ $classification->type }}</option>
+                            @endforeach
                         </select>
                     </div>
                 </div>
