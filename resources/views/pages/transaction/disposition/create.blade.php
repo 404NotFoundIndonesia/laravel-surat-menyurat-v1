@@ -2,16 +2,16 @@
 
 @section('content')
     <x-breadcrumb
-        :values="[__('menu.transaction.menu'), 'XII/SEP/09/XII/HAHA', __('menu.transaction.disposition_letter'), __('menu.general.create')]">
+        :values="[__('menu.transaction.menu'), $letter->reference_number, __('menu.transaction.disposition_letter'), __('menu.general.create')]">
     </x-breadcrumb>
 
     <div class="alert alert-primary alert-dismissible" role="alert">
-        {{ __('model.disposition.notice_me', ['reference_number' => 'XII/SEP/09/XII/HAHA']) }} <a href="{{ route('transaction.incoming.show', 1) }}" class="fw-bold">{{ __('menu.general.view') }}</a>
+        {{ __('model.disposition.notice_me', ['reference_number' => $letter->reference_number]) }} <a href="{{ route('transaction.incoming.show', $letter) }}" class="fw-bold">{{ __('menu.general.view') }}</a>
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 
     <div class="card mb-4">
-        <form action="{{ route('transaction.disposition.store', 1) }}" method="POST">
+        <form action="{{ route('transaction.disposition.store', $letter) }}" method="POST">
             @csrf
             <div class="card-body row">
                 <div class="col-sm-12 col-12 col-md-6 col-lg-6">
@@ -25,9 +25,11 @@
                 </div>
                 <div class="col-sm-12 col-12 col-md-6 col-lg-4">
                     <div class="mb-3">
-                        <label for="status" class="form-label">{{ __('model.disposition.status') }}</label>
-                        <select class="form-select" id="status" name="status">
-                            <option value="Rahasia" selected="">Rahasia</option>
+                        <label for="letter_status" class="form-label">{{ __('model.disposition.status') }}</label>
+                        <select class="form-select" id="letter_status" name="letter_status">
+                            @foreach($statuses as $status)
+                                <option value="{{ $status->id }}">{{ $status->status }}</option>
+                            @endforeach
                         </select>
                     </div>
                 </div>

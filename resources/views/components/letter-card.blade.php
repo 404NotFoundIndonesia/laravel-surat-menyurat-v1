@@ -19,7 +19,7 @@
                 @if($letter->type == 'incoming')
                     <div class="mx-3">
                         <a href="{{ route('transaction.disposition.index', $letter) }}"
-                           class="btn btn-primary btn">{{ __('model.letter.dispose') }}</a>
+                           class="btn btn-primary btn">{{ __('model.letter.dispose') }} <span>({{ $letter->dispositions->count() }})</span></a>
                     </div>
                 @endif
                 <div class="dropdown d-inline-block">

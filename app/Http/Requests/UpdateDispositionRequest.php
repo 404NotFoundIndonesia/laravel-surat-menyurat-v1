@@ -11,9 +11,20 @@ class UpdateDispositionRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
-        return false;
+        return true;
+    }
+
+    public function attributes(): array
+    {
+        return [
+            'to' => __('model.disposition.to'),
+            'content' => __('model.disposition.content'),
+            'due_date' => __('model.disposition.due_date'),
+            'letter_status' => __('model.disposition.status'),
+            'note' => __('model.disposition.note'),
+        ];
     }
 
     /**
@@ -21,10 +32,14 @@ class UpdateDispositionRequest extends FormRequest
      *
      * @return array<string, mixed>
      */
-    public function rules()
+    public function rules(): array
     {
         return [
-            //
+            'to' => ['required'],
+            'content' => ['required'],
+            'due_date' => ['required'],
+            'letter_status' => ['required'],
+            'note' => ['nullable'],
         ];
     }
 }
