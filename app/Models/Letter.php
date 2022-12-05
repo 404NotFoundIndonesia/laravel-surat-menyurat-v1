@@ -59,4 +59,12 @@ class Letter extends Model
     {
         return $this->hasMany(Disposition::class, 'letter_id', 'id');
     }
+
+    /**
+     * @return HasMany
+     */
+    public function attachments(): HasMany
+    {
+        return $this->hasMany(Attachment::class, 'letter_id', 'id');
+    }
 }
