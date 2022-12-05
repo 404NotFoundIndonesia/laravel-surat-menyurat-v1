@@ -28,7 +28,9 @@
                         <label for="letter_status" class="form-label">{{ __('model.disposition.status') }}</label>
                         <select class="form-select" id="letter_status" name="letter_status">
                             @foreach($statuses as $status)
-                                <option value="{{ $status->id }}">{{ $status->status }}</option>
+                                <option
+                                    value="{{ $status->id }}"
+                                    @selected(old('letter_status') == $status->id)>{{ $status->status }}</option>
                             @endforeach
                         </select>
                     </div>

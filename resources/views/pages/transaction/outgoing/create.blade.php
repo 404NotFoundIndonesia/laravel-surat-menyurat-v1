@@ -31,7 +31,11 @@
                         <label for="classification_code" class="form-label">{{ __('model.letter.classification_code') }}</label>
                         <select class="form-select" id="classification_code" name="classification_code">
                             @foreach($classifications as $classification)
-                                <option value="{{ $classification->code }}">{{ $classification->type }}</option>
+                                <option
+                                    value="{{ $classification->code }}"
+                                    @selected(old('classification_code') == $classification->code)>
+                                    {{ $classification->type }}
+                                </option>
                             @endforeach
                         </select>
                     </div>

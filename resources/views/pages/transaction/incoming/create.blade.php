@@ -30,10 +30,15 @@
                 </div>
                 <div class="col-sm-12 col-12 col-md-6 col-lg-4">
                     <div class="mb-3">
-                        <label for="classification_code" class="form-label">{{ __('model.letter.classification_code') }}</label>
+                        <label for="classification_code"
+                               class="form-label">{{ __('model.letter.classification_code') }}</label>
                         <select class="form-select" id="classification_code" name="classification_code">
                             @foreach($classifications as $classification)
-                            <option value="{{ $classification->code }}">{{ $classification->type }}</option>
+                                <option
+                                    value="{{ $classification->code }}"
+                                    @selected(old('classification_code') == $classification->code)>
+                                    {{ $classification->type }}
+                                </option>
                             @endforeach
                         </select>
                     </div>
@@ -44,7 +49,8 @@
                 <div class="col-sm-12 col-12 col-md-6 col-lg-4">
                     <div class="mb-3">
                         <label for="images" class="form-label">{{ __('model.letter.attachment') }}</label>
-                        <input type="file" class="form-control @error('images') is-invalid @enderror" id="images" name="images[]" multiple />
+                        <input type="file" class="form-control @error('images') is-invalid @enderror" id="images"
+                               name="images[]" multiple/>
                         <span class="error invalid-feedback">{{ $errors->first('images') }}</span>
                     </div>
                 </div>
