@@ -10,17 +10,22 @@
 
     <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
         <!-- Search -->
-        <div class="navbar-nav align-items-center">
-            <div class="nav-item d-flex align-items-center">
-                <i class="bx bx-search fs-4 lh-0"></i>
-                <input
-                    type="text"
-                    class="form-control border-0 shadow-none"
-                    placeholder="{{ __('navbar.search') }}"
-                    aria-label="{{ __('navbar.search') }}"
-                />
+        <form action="{{ url()->current() }}">
+            <div class="navbar-nav align-items-center">
+                <div class="nav-item d-flex align-items-center">
+                    <i class="bx bx-search fs-4 lh-0"></i>
+                    <input
+                        type="text"
+                        name="search"
+                        value="{{ $search ?? '' }}"
+                        class="form-control border-0 shadow-none"
+                        placeholder="{{ __('navbar.search') }}"
+                        aria-label="{{ __('navbar.search') }}"
+                    />
+
+                </div>
             </div>
-        </div>
+        </form>
         <!-- /Search -->
 
         <ul class="navbar-nav flex-row align-items-center ms-auto">
@@ -65,16 +70,16 @@
                             <span class="align-middle">{{ __('navbar.profile.settings') }}</span>
                         </a>
                     </li>
-{{--                    <li>--}}
-{{--                        <a class="dropdown-item" href="#">--}}
-{{--                                        <span class="d-flex align-items-center align-middle">--}}
-{{--                                          <i class="flex-shrink-0 bx bx-bell me-2"></i>--}}
-{{--                                          <span class="flex-grow-1 align-middle">{{ __('navbar.profile.notifications') }}</span>--}}
-{{--                                          <span--}}
-{{--                                              class="flex-shrink-0 badge badge-center rounded-pill bg-danger w-px-20 h-px-20">4</span>--}}
-{{--                                        </span>--}}
-{{--                        </a>--}}
-{{--                    </li>--}}
+                    {{--                    <li>--}}
+                    {{--                        <a class="dropdown-item" href="#">--}}
+                    {{--                                        <span class="d-flex align-items-center align-middle">--}}
+                    {{--                                          <i class="flex-shrink-0 bx bx-bell me-2"></i>--}}
+                    {{--                                          <span class="flex-grow-1 align-middle">{{ __('navbar.profile.notifications') }}</span>--}}
+                    {{--                                          <span--}}
+                    {{--                                              class="flex-shrink-0 badge badge-center rounded-pill bg-danger w-px-20 h-px-20">4</span>--}}
+                    {{--                                        </span>--}}
+                    {{--                        </a>--}}
+                    {{--                    </li>--}}
                     <li>
                         <div class="dropdown-divider"></div>
                     </li>
