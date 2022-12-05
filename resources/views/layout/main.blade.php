@@ -120,6 +120,23 @@
 
 <!-- Main JS -->
 <script src="{{ asset('sneat/js/main.js')}}"></script>
+<script>
+    $(document).on('click', '.btn-delete', function (req) {
+        Swal.fire({
+            title: '{{ __('menu.general.delete_confirm') }}',
+            text: "{{ __('menu.general.delete_warning') }}",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#696cff',
+            confirmButtonText: '{{ __('menu.general.delete') }}',
+            cancelButtonText: '{{ __('menu.general.cancel') }}'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $(this).parent('form').submit();
+            }
+        })
+    });
+</script>
 
 <!-- Page JS -->
 @stack('script')

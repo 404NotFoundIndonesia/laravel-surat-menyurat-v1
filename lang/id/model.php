@@ -47,6 +47,7 @@ return [
         'staff' => 'Staf',
         'active' => 'Aktif',
         'nonactive' => 'Nonaktif',
+        'reset_password' => 'Setel ulang Kata Sandi menjadi bawaan?',
     ],
     'general' => [
         'created_at' => 'Dibuat pada',

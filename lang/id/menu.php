@@ -48,6 +48,10 @@ return [
         'empty' => 'Tidak Ada Data',
         'action' => 'Aksi',
         'open' => 'Buka',
+        'delete_confirm' => 'Anda yakin ingin menghapusnya?',
+        'delete_warning' => 'Aksi ini tidak dapat dibatalkan!',
+        'success' => 'Berhasil',
+        'fail' => 'Gagal',
     ],
     'auth' => [
         'login' => 'Masuk',

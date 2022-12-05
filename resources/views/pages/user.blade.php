@@ -1,11 +1,29 @@
 @extends('layout.main')
 
+@push('script')
+    <script>
+        $(document).on('click', '.btn-edit', function () {
+            const id = $(this).data('id');
+            $('#editModal form').attr('action', '{{ route('user.index') }}/' + id);
+            $('#editModal input:hidden#id').val(id);
+            $('#editModal input#name').val($(this).data('name'));
+            $('#editModal input#phone').val($(this).data('phone'));
+            $('#editModal input#email').val($(this).data('email'));
+            if ($(this).data('active') == 1) {
+                $('#editModal input#is_active').attr('checked', 1)
+            } else {
+                $('#editModal input#is_active').removeAttribute('checked');
+            }
+        });
+    </script>
+@endpush
+
 @section('content')
     <x-breadcrumb
         :values="[__('menu.users')]">
         <button
             type="button"
-            class="btn btn-primary"
+            class="btn btn-primary btn-create"
             data-bs-toggle="modal"
             data-bs-target="#createModal">
             {{ __('menu.general.create') }}
@@ -24,18 +42,36 @@
                     <th>{{ __('menu.general.action') }}</th>
                 </tr>
                 </thead>
-                @if(true)
+                @if($data)
                     <tbody>
-                    <tr>
-                        <td>M. Iqbal Effendi</td>
-                        <td>iqbaleff214@gmail.com</td>
-                        <td>082159142175</td>
-                        <td><span class="badge bg-label-primary me-1">{{ __('model.user.active') }}</span></td>
-                        <td>
-                            <button class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#editModal">{{ __('menu.general.edit') }}</button>
-                            <button class="btn btn-danger btn-sm">{{ __('menu.general.delete') }}</button>
-                        </td>
-                    </tr>
+                    @foreach($data as $user)
+                        <tr>
+                            <td>{{ $user->name }}</td>
+                            <td>{{ $user->email }}</td>
+                            <td>{{ $user->phone }}</td>
+                            <td><span
+                                    class="badge bg-label-primary me-1">{{  __('model.user.' . ($user->is_active ? 'active' : 'nonactive')) }}</span>
+                            </td>
+                            <td>
+                                <button class="btn btn-info btn-sm btn-edit"
+                                        data-id="{{ $user->id }}"
+                                        data-name="{{ $user->name }}"
+                                        data-email="{{ $user->email }}"
+                                        data-phone="{{ $user->phone }}"
+                                        data-active="{{ $user->is_active }}"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#editModal">
+                                    {{ __('menu.general.edit') }}
+                                </button>
+                                <form action="{{ route('user.destroy', $user) }}" class="d-inline" method="post">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button class="btn btn-danger btn-sm btn-delete"
+                                            type="button">{{ __('menu.general.delete') }}</button>
+                                </form>
+                            </td>
+                        </tr>
+                    @endforeach
                     </tbody>
                 @else
                     <tbody>
@@ -88,7 +124,8 @@
     <!-- Create Modal -->
     <div class="modal fade" id="createModal" data-bs-backdrop="static" tabindex="-1">
         <div class="modal-dialog">
-            <form class="modal-content">
+            <form class="modal-content" method="post" action="{{ route('user.store') }}">
+                @csrf
                 <div class="modal-header">
                     <h5 class="modal-title" id="createModalTitle">{{ __('menu.general.create') }}</h5>
                     <button
@@ -107,7 +144,7 @@
                     <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
                         {{ __('menu.general.cancel') }}
                     </button>
-                    <button type="button" class="btn btn-primary">{{ __('menu.general.save') }}</button>
+                    <button type="submit" class="btn btn-primary">{{ __('menu.general.save') }}</button>
                 </div>
             </form>
         </div>
@@ -116,7 +153,9 @@
     <!-- Edit Modal -->
     <div class="modal fade" id="editModal" data-bs-backdrop="static" tabindex="-1">
         <div class="modal-dialog">
-            <form class="modal-content">
+            <form class="modal-content" method="post" action="">
+                @csrf
+                @method('PUT')
                 <div class="modal-header">
                     <h5 class="modal-title" id="editModalTitle">{{ __('menu.general.edit') }}</h5>
                     <button
@@ -127,15 +166,24 @@
                     ></button>
                 </div>
                 <div class="modal-body">
+                    <input type="hidden" name="id" id="id" value="">
                     <x-input-form name="name" :label="__('model.user.name')"/>
                     <x-input-form name="email" :label="__('model.user.email')" type="email"/>
                     <x-input-form name="phone" :label="__('model.user.phone')"/>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="is_active" value="true" id="is_active">
+                        <label class="form-check-label" for="is_active"> {{ __('model.user.is_active') }} </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="reset_password" value="true" id="reset_password">
+                        <label class="form-check-label" for="reset_password"> {{ __('model.user.reset_password') }} </label>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
                         {{ __('menu.general.cancel') }}
                     </button>
-                    <button type="button" class="btn btn-primary">{{ __('menu.general.save') }}</button>
+                    <button type="submit" class="btn btn-primary">{{ __('menu.general.update') }}</button>
                 </div>
             </form>
         </div>

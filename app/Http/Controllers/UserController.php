@@ -4,9 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
+use App\Models\Config;
 use App\Models\User;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Hash;
+use TheSeer\Tokenizer\Exception;
 
 class UserController extends Controller
 {
@@ -15,9 +18,11 @@ class UserController extends Controller
      *
      * @return View
      */
-    public function index(): \Illuminate\Contracts\View\View
+    public function index(): View
     {
-        return view('pages.user');
+        return view('pages.user', [
+            'data' => User::all(),
+        ]);
     }
 
     /**
@@ -28,7 +33,14 @@ class UserController extends Controller
      */
     public function store(StoreUserRequest $request): RedirectResponse
     {
-        return redirect()->route('user.index');
+        try {
+            $newUser = $request->validated();
+            $newUser['password'] = Hash::make(Config::code(\App\Enums\Config::DEFAULT_PASSWORD)->first());
+            User::create($newUser);
+            return back()->with('success', __('menu.general.success'));
+        } catch (\Throwable $exception) {
+            return back()->with('error', $exception->getMessage());
+        }
     }
 
     /**
@@ -40,7 +52,16 @@ class UserController extends Controller
      */
     public function update(UpdateUserRequest $request, User $user): RedirectResponse
     {
-        return back();
+        try {
+            $newUser = $request->validated();
+            $newUser['is_active'] = isset($newUser['is_active']);
+            if ($request->reset_password)
+                $newUser['password'] = Hash::make(Config::code(\App\Enums\Config::DEFAULT_PASSWORD)->first());
+            $user->update($newUser);
+            return back()->with('success', __('menu.general.success'));
+        } catch (\Throwable $exception) {
+            return back()->with('error', $exception->getMessage());
+        }
     }
 
     /**
@@ -48,9 +69,15 @@ class UserController extends Controller
      *
      * @param User $user
      * @return RedirectResponse
+     * @throws \Exception
      */
     public function destroy(User $user): RedirectResponse
     {
-        return back();
+        try {
+            $user->delete();
+            return back()->with('success', __('menu.general.success'));
+        } catch (\Throwable $exception) {
+            return back()->with('error', $exception->getMessage());
+        }
     }
 }

@@ -47,6 +47,7 @@ return [
         'staff' => 'Staff',
         'active' => 'Active',
         'nonactive' => 'Nonactive',
+        'reset_password' => 'Reset Password to Default?',
     ],
     'general' => [
         'created_at' => 'Created At',

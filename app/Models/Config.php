@@ -13,4 +13,9 @@ class Config extends Model
         'code',
         'value',
     ];
+
+    public function scopeCode($query, \App\Enums\Config $code)
+    {
+        return $query->where('code', $code->value());
+    }
 }

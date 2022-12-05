@@ -48,6 +48,10 @@ return [
         'empty' => 'There\'s No Data',
         'action' => 'Action',
         'open' => 'Open',
+        'delete_confirm' => 'Are you sure want to delete this?',
+        'delete_warning' => 'You won\'t be able to revert it!',
+        'success' => 'Success',
+        'fail' => 'Fail',
     ],
     'auth' => [
         'login' => 'Login',
