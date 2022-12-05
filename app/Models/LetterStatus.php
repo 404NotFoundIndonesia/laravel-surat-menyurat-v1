@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class LetterStatus extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'status',
+    ];
 }
