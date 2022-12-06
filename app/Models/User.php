@@ -61,7 +61,7 @@ class User extends Authenticatable
             get: function ($value) {
                 if ($value) return $value;
 
-                $url = 'https://ui-avatars.com/api/?background=6D67E4&name=';
+                $url = 'https://ui-avatars.com/api/?background=6D67E4&color=fff&name=';
                 return $url . urlencode($this->name);
             },
         );

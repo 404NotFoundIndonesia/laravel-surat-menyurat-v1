@@ -20,10 +20,14 @@ Route::middleware(['auth'])->group(function () {
         ->except(['show', 'edit', 'create'])
         ->middleware(['role:admin']);
 
-    Route::get('profile', [\App\Http\Controllers\PageController::class, 'profile'])->name('profile.show');
+    Route::get('profile', [\App\Http\Controllers\PageController::class, 'profile'])
+        ->name('profile.show');
+    Route::put('profile', [\App\Http\Controllers\PageController::class, 'profileUpdate'])
+        ->name('profile.update');
     Route::put('profile/deactivate', [\App\Http\Controllers\PageController::class, 'deactivate'])
         ->name('profile.deactivate')
         ->middleware(['role:staff']);
+
     Route::get('settings', [\App\Http\Controllers\PageController::class, 'settings'])
         ->name('settings.show')
         ->middleware(['role:admin']);

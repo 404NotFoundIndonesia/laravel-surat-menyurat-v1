@@ -50,46 +50,51 @@
             @endif
 
             <div class="card mb-4">
-                <!-- Account -->
-                <div class="card-body">
-                    <div class="d-flex align-items-start align-items-sm-center gap-4">
-                        <img src="https://avatars.githubusercontent.com/u/51848549?v=4" alt="user-avatar"
-                             class="d-block rounded" height="100" width="100" id="uploadedAvatar">
-                        <div class="button-wrapper">
-                            <label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
-                                <span class="d-none d-sm-block">{{ __('menu.general.upload') }}</span>
-                                <i class="bx bx-upload d-block d-sm-none"></i>
-                                <input type="file" id="upload" class="account-file-input" hidden=""
-                                       accept="image/png, image/jpeg">
-                            </label>
-                            <button type="button" class="btn btn-outline-secondary account-image-reset mb-4">
-                                <i class="bx bx-reset d-block d-sm-none"></i>
-                                <span class="d-none d-sm-block">{{ __('menu.general.cancel') }}</span>
-                            </button>
+                <form action="{{ route('profile.update') }}" method="post" enctype="multipart/form-data">
+                    @csrf
+                    @method('PUT')
+                    <!-- Account -->
+                    <div class="card-body">
+                        <div class="d-flex align-items-start align-items-sm-center gap-4">
+                            <img src="{{ $data->profile_picture }}" alt="user-avatar"
+                                 class="d-block rounded" height="100" width="100" id="uploadedAvatar">
+                            <div class="button-wrapper">
+                                <label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
+                                    <span class="d-none d-sm-block">{{ __('menu.general.upload') }}</span>
+                                    <i class="bx bx-upload d-block d-sm-none"></i>
+                                    <input type="file" name="profile_picture" id="upload" class="account-file-input" hidden=""
+                                           accept="image/png, image/jpeg">
+                                </label>
+                                <button type="button" class="btn btn-outline-secondary account-image-reset mb-4">
+                                    <i class="bx bx-reset d-block d-sm-none"></i>
+                                    <span class="d-none d-sm-block">{{ __('menu.general.cancel') }}</span>
+                                </button>
 
-                            <p class="text-muted mb-0">< 800K (JPG, GIF, PNG)</p>
+                                <p class="text-muted mb-0">< 800K (JPG, GIF, PNG)</p>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <hr class="my-0">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-6 col-lg-12">
-                            <x-input-form name="name" :label="__('model.user.name')"/>
+                    <hr class="my-0">
+                    <div class="card-body">
+                        <div class="row">
+                            <input type="hidden" name="id" value="{{ $data->id }}">
+                            <div class="col-md-6 col-lg-12">
+                                <x-input-form name="name" :label="__('model.user.name')" :value="$data->name" />
+                            </div>
+                            <div class="col-md-6">
+                                <x-input-form name="email" :label="__('model.user.email')" :value="$data->email" />
+                            </div>
+                            <div class="col-md-6">
+                                <x-input-form name="phone" :label="__('model.user.phone')" :value="$data->phone" />
+                            </div>
                         </div>
-                        <div class="col-md-6">
-                            <x-input-form name="email" :label="__('model.user.email')"/>
-                        </div>
-                        <div class="col-md-6">
-                            <x-input-form name="phone" :label="__('model.user.phone')"/>
+                        <div class="mt-2">
+                            <button type="submit" class="btn btn-primary me-2">{{ __('menu.general.update') }}</button>
+                            <button type="reset" class="btn btn-outline-secondary">{{ __('menu.general.cancel') }}</button>
                         </div>
                     </div>
-                    <div class="mt-2">
-                        <button type="submit" class="btn btn-primary me-2">{{ __('menu.general.update') }}</button>
-                        <button type="reset" class="btn btn-outline-secondary">{{ __('menu.general.cancel') }}</button>
-                    </div>
-                </div>
-                <!-- /Account -->
+                    <!-- /Account -->
+                </form>
             </div>
 
             @if(auth()->user()->role == 'staff')

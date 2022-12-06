@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Enums\LetterType;
 use App\Helpers\GeneralHelper;
 use App\Http\Requests\UpdateConfigRequest;
+use App\Http\Requests\UpdateUserRequest;
 use App\Models\Config;
 use App\Models\Disposition;
 use App\Models\Letter;
@@ -15,6 +16,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use JetBrains\PhpStorm\NoReturn;
 
 class PageController extends Controller
@@ -56,9 +58,44 @@ class PageController extends Controller
      */
     public function profile(Request $request): View
     {
-        return view('pages.profile');
+        return view('pages.profile', [
+            'data' => auth()->user(),
+        ]);
     }
 
+    /**
+     * @param UpdateUserRequest $request
+     * @return RedirectResponse
+     */
+    public function profileUpdate(UpdateUserRequest $request): RedirectResponse
+    {
+        try {
+            $newProfile = $request->validated();
+            if ($request->hasFile('profile_picture')) {
+//               DELETE OLD PICTURE
+                $oldPicture = auth()->user()->profile_picture;
+                if (str_contains($oldPicture, '/storage/avatars/')) {
+                    $url = parse_url($oldPicture, PHP_URL_PATH);
+                    Storage::delete(str_replace('/storage', 'public', $url));
+                }
+
+//                UPLOAD NEW PICTURE
+                $filename = time() .
+                    '-' . $request->file('profile_picture')->getFilename() .
+                    '.' . $request->file('profile_picture')->getClientOriginalExtension();
+                $request->file('profile_picture')->storeAs('public/avatars', $filename);
+                $newProfile['profile_picture'] = asset('storage/avatars/' . $filename);
+            }
+            auth()->user()->update($newProfile);
+            return back()->with('success', __('menu.general.success'));
+        } catch (\Throwable $exception) {
+            return back()->with('error', $exception->getMessage());
+        }
+    }
+
+    /**
+     * @return RedirectResponse
+     */
     public function deactivate(): RedirectResponse
     {
         try {
