@@ -4,15 +4,19 @@
             <div>
                 <h5 class="card-title mb-0 text-uppercase">{{ $extension }}</h5>
                 <small>
-                    <a href="/" class="fw-bold">XII/SEP/09/XII/HAHA</a>
+                    @if($letter->type == 'incoming')
+                        <a href="{{ route('transaction.incoming.show', $letter) }}" class="fw-bold">{{ $letter->reference_number }}</a>
+                    @else
+                        <a href="{{ route('transaction.outgoing.show', $letter) }}" class="fw-bold">{{ $letter->reference_number }}</a>
+                    @endif
                 </small>
             </div>
             @if(strtolower($extension) == 'pdf')
                 <i class="bx bxs-file-pdf display-5"></i>
-            @elseif(strtolower($extension) == 'jpg')
+            @elseif(strtolower($extension) == 'png')
+                <i class="bx bxs-file-png display-5"></i>
+            @elseif(in_array(strtolower($extension), ['jpeg', 'jpg']))
                 <i class="bx bxs-file-jpg display-5"></i>
-            @elseif(in_array(strtolower($extension), ['jpeg', 'png']))
-                <i class="bx bxs-file-image display-5"></i>
             @else
                 <i class="bx bxs-file display-5"></i>
             @endif
@@ -24,7 +28,7 @@
                 </button>
                 <div id="accordion-id-{{ str_replace('.', '-', $filename) }}" class="accordion-collapse collapse text-center" data-bs-parent="#accordion-{{ str_replace('.', '-', $filename) }}" style="">
                     @if(strtolower($extension) == 'pdf')
-                        <button class="btn my-3 btn-primary">{{ __('menu.general.download') }}</button>
+                        <a class="btn my-3 btn-primary" download href="{{ $path }}">{{ __('menu.general.download') }}</a>
                     @elseif(in_array(strtolower($extension), ['jpg', 'jpeg', 'png']))
                         <img src="{{ $path }}" width="100%" alt="Picture">
                     @endif

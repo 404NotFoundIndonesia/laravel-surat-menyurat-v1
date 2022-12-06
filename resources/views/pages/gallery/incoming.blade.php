@@ -6,52 +6,19 @@
     </x-breadcrumb>
 
     <div class="row row-cols-1 row-cols-md-3 g-4 mb-5">
+        @foreach($data as $attachment)
         <div class="col">
             <x-gallery-card
-                filename="file-merah-pdf.pdf"
-                extension="pdf"
-                path="https://avatars.githubusercontent.com/u/51848549?v=4"
+                :filename="$attachment->filename"
+                :extension="$attachment->extension"
+                :path="$attachment->path_url"
+                :letter="$attachment->letter"
             />
         </div>
-        <div class="col">
-            <x-gallery-card
-                filename="file-merah-jpg.jpg"
-                extension="jpg"
-                path="https://avatars.githubusercontent.com/u/51848549?v=4"
-            />
-        </div>
-        <div class="col">
-            <x-gallery-card
-                filename="file-merah-png.png"
-                extension="png"
-                path="https://avatars.githubusercontent.com/u/51848549?v=4"
-            />
-        </div>
+        @endforeach
     </div>
 
-    <nav aria-label="Page navigation">
-        <ul class="pagination justify-content-center">
-            <li class="page-item prev">
-                <a class="page-link" href="javascript:void(0);"><i class="tf-icon bx bx-chevrons-left"></i></a>
-            </li>
-            <li class="page-item">
-                <a class="page-link" href="javascript:void(0);">1</a>
-            </li>
-            <li class="page-item">
-                <a class="page-link" href="javascript:void(0);">2</a>
-            </li>
-            <li class="page-item active">
-                <a class="page-link" href="javascript:void(0);">3</a>
-            </li>
-            <li class="page-item">
-                <a class="page-link" href="javascript:void(0);">4</a>
-            </li>
-            <li class="page-item">
-                <a class="page-link" href="javascript:void(0);">5</a>
-            </li>
-            <li class="page-item next">
-                <a class="page-link" href="javascript:void(0);"><i class="tf-icon bx bx-chevrons-right"></i></a>
-            </li>
-        </ul>
-    </nav>
+
+    {!! $data->appends(['search' => $search])->links() !!}
+
 @endsection
