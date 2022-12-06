@@ -36,8 +36,12 @@
                                 <div class="col">
                                     <button class="btn btn-primary"
                                             type="submit">{{ __('menu.general.filter') }}</button>
-                                    <button class="btn btn-primary"
-                                            type="button">{{ __('menu.general.print') }}</button>
+                                    <a
+                                        href="{{ route('agenda.outgoing.print') . '?' . $query }}"
+                                        target="_blank"
+                                        class="btn btn-primary">
+                                        {{ __('menu.general.print') }}
+                                    </a>
                                 </div>
                             </div>
                         </div>

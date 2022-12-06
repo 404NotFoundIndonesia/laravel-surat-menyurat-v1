@@ -46,7 +46,9 @@ Route::middleware(['auth'])->group(function () {
 
     Route::prefix('agenda')->as('agenda.')->group(function () {
         Route::get('incoming', [\App\Http\Controllers\IncomingLetterController::class, 'agenda'])->name('incoming');
+        Route::get('incoming/print', [\App\Http\Controllers\IncomingLetterController::class, 'print'])->name('incoming.print');
         Route::get('outgoing', [\App\Http\Controllers\OutgoingLetterController::class, 'agenda'])->name('outgoing');
+        Route::get('outgoing/print', [\App\Http\Controllers\OutgoingLetterController::class, 'print'])->name('outgoing.print');
     });
 
     Route::prefix('gallery')->as('gallery.')->group(function () {

@@ -7,10 +7,13 @@ use App\Http\Requests\StoreLetterRequest;
 use App\Http\Requests\UpdateLetterRequest;
 use App\Models\Attachment;
 use App\Models\Classification;
+use App\Models\Config;
 use App\Models\Letter;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 
 class IncomingLetterController extends Controller
 {
@@ -42,6 +45,27 @@ class IncomingLetterController extends Controller
             'since' => $request->since,
             'until' => $request->until,
             'filter' => $request->filter,
+            'query' => $request->getQueryString(),
+        ]);
+    }
+
+    /**
+     * @param Request $request
+     * @return View
+     */
+    public function print(Request $request): View
+    {
+        $agenda = __('menu.agenda.menu');
+        $letter = __('menu.agenda.incoming_letter');
+        $title = App::getLocale() == 'id' ? "$agenda $letter" : "$letter $agenda";
+        return view('pages.transaction.incoming.print', [
+            'data' => Letter::incoming()->agenda($request->since, $request->until, $request->filter)->get(),
+            'search' => $request->search,
+            'since' => $request->since,
+            'until' => $request->until,
+            'filter' => $request->filter,
+            'config' => Config::pluck('value','code')->toArray(),
+            'title' => $title,
         ]);
     }
 
