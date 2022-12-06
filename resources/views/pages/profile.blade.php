@@ -2,6 +2,10 @@
 
 @push('script')
     <script>
+        $('input#accountActivation').on('change', function () {
+           $('button.deactivate-account').attr('disabled', !$(this).is(':checked'));
+        });
+
         document.addEventListener('DOMContentLoaded', function (e) {
             (function () {
                 // Update/reset user image of account page
@@ -94,12 +98,14 @@
                             <h6 class="alert-heading fw-bold mb-1">{{ __('navbar.profile.deactivate_confirm_message') }}</h6>
                         </div>
                     </div>
-                    <form id="formAccountDeactivation" onsubmit="return false">
+                    <form id="formAccountDeactivation" action="{{ route('profile.deactivate') }}" method="post">
+                        @csrf
+                        @method('PUT')
                         <div class="form-check mb-3">
                             <input class="form-check-input" type="checkbox" name="accountActivation" id="accountActivation">
                             <label class="form-check-label" for="accountActivation">{{ __('navbar.profile.deactivate_confirm') }}</label>
                         </div>
-                        <button type="submit" class="btn btn-danger deactivate-account">{{ __('navbar.profile.deactivate_account') }}</button>
+                        <button type="submit" class="btn btn-danger deactivate-account" disabled>{{ __('navbar.profile.deactivate_account') }}</button>
                     </form>
                 </div>
             </div>

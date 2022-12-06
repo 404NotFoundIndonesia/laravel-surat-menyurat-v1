@@ -19,6 +19,7 @@ Route::middleware(['auth'])->group(function() {
     Route::resource('user', \App\Http\Controllers\UserController::class)->except(['show', 'edit', 'create']);
 
     Route::get('profile', [\App\Http\Controllers\PageController::class, 'profile'])->name('profile.show');
+    Route::put('profile/deactivate', [\App\Http\Controllers\PageController::class, 'deactivate'])->name('profile.deactivate');
     Route::get('settings', [\App\Http\Controllers\PageController::class, 'settings'])->name('settings.show');
     Route::put('settings', [\App\Http\Controllers\PageController::class, 'settingsUpdate'])->name('settings.update');
 

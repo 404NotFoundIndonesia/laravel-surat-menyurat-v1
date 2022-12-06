@@ -13,6 +13,7 @@ use Carbon\Carbon;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use JetBrains\PhpStorm\NoReturn;
 
@@ -56,6 +57,17 @@ class PageController extends Controller
     public function profile(Request $request): View
     {
         return view('pages.profile');
+    }
+
+    public function deactivate(): RedirectResponse
+    {
+        try {
+            auth()->user()->update(['is_active' => false]);
+            Auth::logout();
+            return back()->with('success', __('menu.general.success'));
+        } catch (\Throwable $exception) {
+            return back()->with('error', $exception->getMessage());
+        }
     }
 
     /**
