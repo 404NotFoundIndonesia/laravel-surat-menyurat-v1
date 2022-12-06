@@ -35,6 +35,9 @@ Route::middleware(['auth'])->group(function () {
         ->name('settings.update')
         ->middleware(['role:admin']);
 
+    Route::delete('attachment', [\App\Http\Controllers\PageController::class, 'removeAttachment'])
+        ->name('attachment.destroy');
+
     Route::prefix('transaction')->as('transaction.')->group(function () {
         Route::resource('incoming', \App\Http\Controllers\IncomingLetterController::class);
         Route::resource('outgoing', \App\Http\Controllers\OutgoingLetterController::class);

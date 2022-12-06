@@ -48,10 +48,10 @@
                 </div>
                 <div class="col-sm-12 col-12 col-md-6 col-lg-4">
                     <div class="mb-3">
-                        <label for="images" class="form-label">{{ __('model.letter.attachment') }}</label>
-                        <input type="file" class="form-control @error('images') is-invalid @enderror" id="images"
-                               name="images[]" multiple/>
-                        <span class="error invalid-feedback">{{ $errors->first('images') }}</span>
+                        <label for="attachments" class="form-label">{{ __('model.letter.attachment') }}</label>
+                        <input type="file" class="form-control @error('attachments') is-invalid @enderror" id="attachments"
+                               name="attachments[]" multiple/>
+                        <span class="error invalid-feedback">{{ $errors->first('attachments') }}</span>
                     </div>
                 </div>
             </div>

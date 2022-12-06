@@ -6,6 +6,7 @@ use App\Enums\LetterType;
 use App\Helpers\GeneralHelper;
 use App\Http\Requests\UpdateConfigRequest;
 use App\Http\Requests\UpdateUserRequest;
+use App\Models\Attachment;
 use App\Models\Config;
 use App\Models\Disposition;
 use App\Models\Letter;
@@ -133,6 +134,26 @@ class PageController extends Controller
             return back()->with('success', __('menu.general.success'));
         } catch (\Throwable $exception) {
             DB::rollBack();
+            return back()->with('error', $exception->getMessage());
+        }
+    }
+
+    /**
+     * @param Request $request
+     * @return RedirectResponse
+     */
+    public function removeAttachment(Request $request): RedirectResponse
+    {
+        try {
+            $attachment = Attachment::find($request->id);
+            $oldPicture = $attachment->path_url;
+            if (str_contains($oldPicture, '/storage/attachments/')) {
+                $url = parse_url($oldPicture, PHP_URL_PATH);
+                Storage::delete(str_replace('/storage', 'public', $url));
+            }
+            $attachment->delete();
+            return back()->with('success', __('menu.general.success'));
+        } catch (\Throwable $exception) {
             return back()->with('error', $exception->getMessage());
         }
     }

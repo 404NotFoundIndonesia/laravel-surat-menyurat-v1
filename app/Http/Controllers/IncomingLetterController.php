@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Enums\LetterType;
 use App\Http\Requests\StoreLetterRequest;
 use App\Http\Requests\UpdateLetterRequest;
+use App\Models\Attachment;
 use App\Models\Classification;
 use App\Models\Letter;
 use Illuminate\Contracts\View\View;
@@ -65,10 +66,27 @@ class IncomingLetterController extends Controller
     public function store(StoreLetterRequest $request): RedirectResponse
     {
         try {
+            $user = auth()->user();
+
             if ($request->type != LetterType::INCOMING->type()) throw new \Exception(__('menu.transaction.incoming_letter'));
             $newLetter = $request->validated();
-            $newLetter['user_id'] = auth()->user()->id;
-            Letter::create($newLetter);
+            $newLetter['user_id'] = $user->id;
+            $letter = Letter::create($newLetter);
+            if ($request->hasFile('attachments')) {
+                foreach ($request->attachments as $attachment) {
+                    $extension = $attachment->getClientOriginalExtension();
+                    if (!in_array($extension, ['png', 'jpg', 'jpeg', 'pdf'])) continue;
+                    $filename = time() . '-'. $attachment->getClientOriginalName();
+                    $filename = str_replace(' ', '-', $filename);
+                    $attachment->storeAs('public/attachments', $filename);
+                    Attachment::create([
+                        'filename' => $filename,
+                        'extension' => $extension,
+                        'user_id' => $user->id,
+                        'letter_id' => $letter->id,
+                    ]);
+                }
+            }
             return redirect()
                 ->route('transaction.incoming.index')
                 ->with('success', __('menu.general.success'));
@@ -115,6 +133,21 @@ class IncomingLetterController extends Controller
     {
         try {
             $incoming->update($request->validated());
+            if ($request->hasFile('attachments')) {
+                foreach ($request->attachments as $attachment) {
+                    $extension = $attachment->getClientOriginalExtension();
+                    if (!in_array($extension, ['png', 'jpg', 'jpeg', 'pdf'])) continue;
+                    $filename = time() . '-'. $attachment->getClientOriginalName();
+                    $filename = str_replace(' ', '-', $filename);
+                    $attachment->storeAs('public/attachments', $filename);
+                    Attachment::create([
+                        'filename' => $filename,
+                        'extension' => $extension,
+                        'user_id' => auth()->user()->id,
+                        'letter_id' => $incoming->id,
+                    ]);
+                }
+            }
             return back()->with('success', __('menu.general.success'));
         } catch (\Throwable $exception) {
             return back()->with('error', $exception->getMessage());

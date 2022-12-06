@@ -25,12 +25,12 @@ class Attachment extends Model
     /**
      * @return string
      */
-    protected function defaultPathUrl(): string {
+    public function getPathUrlAttribute(): string {
         if (!is_null($this->path)) {
             return $this->path;
         }
 
-        return asset($this->filename);
+        return asset('storage/attachments/' . $this->filename);
     }
 
     /**

@@ -24,7 +24,8 @@
                                   :label="__('model.letter.agenda_number')"/>
                 </div>
                 <div class="col-sm-12 col-12 col-md-6 col-lg-6">
-                    <x-input-form :value="date('Y-m-d', strtotime($data->letter_date))" name="letter_date" :label="__('model.letter.letter_date')"
+                    <x-input-form :value="date('Y-m-d', strtotime($data->letter_date))" name="letter_date"
+                                  :label="__('model.letter.letter_date')"
                                   type="date"/>
                 </div>
                 <div class="col-sm-12 col-12 col-md-6 col-lg-6">
@@ -54,16 +55,23 @@
                 </div>
                 <div class="col-sm-12 col-12 col-md-6 col-lg-4">
                     <div class="mb-3">
-                        <label for="images" class="form-label">{{ __('model.letter.attachment') }}</label>
-                        <input type="file" class="form-control @error('images') is-invalid @enderror" id="images"
-                               name="images[]" multiple/>
-                        <span class="error invalid-feedback">{{ $errors->first('images') }}</span>
+                        <label for="attachments" class="form-label">{{ __('model.letter.attachment') }}</label>
+                        <input type="file" class="form-control @error('attachments') is-invalid @enderror"
+                               id="attachments"
+                               name="attachments[]" multiple/>
+                        <span class="error invalid-feedback">{{ $errors->first('attachments') }}</span>
                     </div>
                     <ul class="list-group">
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            blablabla.pdf
-                            <span class="badge bg-danger rounded-pill cursor-pointer"><i class="bx bx-trash"></i></span>
-                        </li>
+                        @foreach($data->attachments as $attachment)
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <a href="{{ $attachment->path_url }}" target="_blank">{{ $attachment->filename }}</a>
+                                    <span
+                                        class="badge bg-danger rounded-pill cursor-pointer btn-remove-attachment"
+                                        data-id="{{ $attachment->id }}">
+                                        <i class="bx bx-trash"></i>
+                                    </span>
+                            </li>
+                        @endforeach
                     </ul>
                 </div>
             </div>
@@ -72,4 +80,30 @@
             </div>
         </form>
     </div>
+    <form action="{{ route('attachment.destroy') }}" method="post" id="form-to-remove-attachment">
+        @csrf
+        @method('DELETE')
+        <input type="hidden" name="id" id="attachment-id-to-remove">
+    </form>
 @endsection
+
+@push('script')
+    <script>
+        $(document).on('click', '.btn-remove-attachment', function (req) {
+            $('input#attachment-id-to-remove').val($(this).data('id'));
+            Swal.fire({
+                title: '{{ __('menu.general.delete_confirm') }}',
+                text: "{{ __('menu.general.delete_warning') }}",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#696cff',
+                confirmButtonText: '{{ __('menu.general.delete') }}',
+                cancelButtonText: '{{ __('menu.general.cancel') }}'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $('form#form-to-remove-attachment').submit();
+                }
+            })
+        });
+    </script>
+@endpush
