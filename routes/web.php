@@ -20,6 +20,7 @@ Route::middleware(['auth'])->group(function() {
 
     Route::get('profile', [\App\Http\Controllers\PageController::class, 'profile'])->name('profile.show');
     Route::get('settings', [\App\Http\Controllers\PageController::class, 'settings'])->name('settings.show');
+    Route::put('settings', [\App\Http\Controllers\PageController::class, 'settingsUpdate'])->name('settings.update');
 
     Route::prefix('transaction')->as('transaction.')->group(function() {
         Route::resource('incoming', \App\Http\Controllers\IncomingLetterController::class);

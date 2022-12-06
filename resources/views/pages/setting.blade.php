@@ -19,36 +19,22 @@
 
             <div class="card mb-4">
                 <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <x-input-form name="default_password" :label="__('model.config.default_password')"/>
+                    <form action="{{ route('settings.update') }}" method="post">
+                        @csrf
+                        @method('PUT')
+                        <div class="row">
+                            @foreach($configs as $config)
+                                @continue($config->code == 'language')
+                                <div class="col-md-6">
+                                    <x-input-form :name="$config->code" :value="$config->value ?? ''" :label="__('model.config.' . $config->code)"/>
+                                </div>
+                            @endforeach
                         </div>
-                        <div class="col-md-6">
-                            <x-input-form name="page_size" :label="__('model.config.page_size')"/>
+                        <div class="mt-2">
+                            <button type="submit" class="btn btn-primary me-2">{{ __('menu.general.update') }}</button>
+                            <button type="reset" class="btn btn-outline-secondary">{{ __('menu.general.cancel') }}</button>
                         </div>
-                        <div class="col-md-6">
-                            <x-input-form name="app_name" :label="__('model.config.app_name')"/>
-                        </div>
-                        <div class="col-md-6">
-                            <x-input-form name="institution_name" :label="__('model.config.institution_name')"/>
-                        </div>
-                        <div class="col-md-6">
-                            <x-input-form name="institution_address" :label="__('model.config.institution_address')"/>
-                        </div>
-                        <div class="col-md-6">
-                            <x-input-form name="institution_phone" :label="__('model.config.institution_phone')"/>
-                        </div>
-                        <div class="col-md-6">
-                            <x-input-form name="institution_email" :label="__('model.config.institution_email')"/>
-                        </div>
-                        <div class="col-md-6">
-                            <x-input-form name="pic" :label="__('model.config.pic')"/>
-                        </div>
-                    </div>
-                    <div class="mt-2">
-                        <button type="submit" class="btn btn-primary me-2">{{ __('menu.general.update') }}</button>
-                        <button type="reset" class="btn btn-outline-secondary">{{ __('menu.general.cancel') }}</button>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>

@@ -3,15 +3,25 @@
 namespace App\Http\Controllers;
 
 use App\Enums\LetterType;
+use App\Helpers\GeneralHelper;
+use App\Http\Requests\UpdateConfigRequest;
+use App\Models\Config;
 use App\Models\Disposition;
 use App\Models\Letter;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use JetBrains\PhpStorm\NoReturn;
 
 class PageController extends Controller
 {
+    /**
+     * @param Request $request
+     * @return View
+     */
     public function index(Request $request): View
     {
         $todayIncomingLetter = Letter::incoming()->today()->count();
@@ -24,52 +34,57 @@ class PageController extends Controller
         $yesterdayDispositionLetter = Disposition::yesterday()->count();
         $yesterdayLetterTransaction = $yesterdayIncomingLetter + $yesterdayOutgoingLetter + $yesterdayDispositionLetter;
 
-        $greeting = 'evening';
-        $currentHour = now()->hour;
-        if ($currentHour < 4) {
-            $greeting = 'night';
-        } elseif ($currentHour < 11) {
-            $greeting = 'morning';
-        } elseif ($currentHour < 15) {
-            $greeting = 'afternoon';
-        } elseif ($currentHour > 20) {
-            $greeting = 'night';
-        }
-
         return view('pages.dashboard', [
-            'greeting' => __('dashboard.greeting.' . $greeting, ['name' => auth()->user()->name]),
+            'greeting' => GeneralHelper::greeting(),
             'currentDate' => Carbon::now()->isoFormat('dddd, D MMMM YYYY'),
             'todayIncomingLetter' => $todayIncomingLetter,
             'todayOutgoingLetter' => $todayOutgoingLetter,
             'todayDispositionLetter' => $todayDispositionLetter,
             'todayLetterTransaction' => $todayLetterTransaction,
             'activeUser' => User::active()->count(),
-            'percentageIncomingLetter' => $this->calculatePercentage($todayIncomingLetter, $yesterdayIncomingLetter),
-            'percentageOutgoingLetter' => $this->calculatePercentage($todayOutgoingLetter, $yesterdayOutgoingLetter),
-            'percentageDispositionLetter' => $this->calculatePercentage($todayDispositionLetter, $yesterdayDispositionLetter),
-            'percentageLetterTransaction' => $this->calculatePercentage($todayLetterTransaction, $yesterdayLetterTransaction),
+            'percentageIncomingLetter' => GeneralHelper::calculateChangePercentage($yesterdayIncomingLetter, $todayIncomingLetter),
+            'percentageOutgoingLetter' => GeneralHelper::calculateChangePercentage($yesterdayOutgoingLetter, $todayOutgoingLetter),
+            'percentageDispositionLetter' => GeneralHelper::calculateChangePercentage($yesterdayDispositionLetter, $todayDispositionLetter),
+            'percentageLetterTransaction' => GeneralHelper::calculateChangePercentage($yesterdayLetterTransaction, $todayLetterTransaction),
         ]);
     }
 
-    private function calculatePercentage($today, $yesterday): float
-    {
-        if ($today < $yesterday) {
-            $total = ($yesterday - $today) / $yesterday * -100;
-        } elseif ($today > $yesterday) {
-            $total = ($today - $yesterday) / $today * 100;
-        } else {
-            $total = 0;
-        }
-        return round($total, 2);
-    }
-
+    /**
+     * @param Request $request
+     * @return View
+     */
     public function profile(Request $request): View
     {
         return view('pages.profile');
     }
 
+    /**
+     * @param Request $request
+     * @return View
+     */
     public function settings(Request $request): View
     {
-        return view('pages.setting');
+        return view('pages.setting', [
+            'configs' => Config::all(),
+        ]);
+    }
+
+    /**
+     * @param UpdateConfigRequest $request
+     * @return RedirectResponse
+     */
+    public function settingsUpdate(UpdateConfigRequest $request): RedirectResponse
+    {
+        try {
+            DB::beginTransaction();
+            foreach ($request->validated() as $code => $value) {
+                Config::where('code', $code)->update(['value' => $value]);
+            }
+            DB::commit();
+            return back()->with('success', __('menu.general.success'));
+        } catch (\Throwable $exception) {
+            DB::rollBack();
+            return back()->with('error', $exception->getMessage());
+        }
     }
 }
