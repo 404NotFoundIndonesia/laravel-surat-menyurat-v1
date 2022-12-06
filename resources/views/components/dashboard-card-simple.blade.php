@@ -6,7 +6,7 @@
                     <i class="bx {{ $icon }} text-{{ $color }}"></i>
                 </span>
             </div>
-            @if($label != __('dashboard.disposition_letter'))
+            @if($label != __('dashboard.disposition_letter') && !(auth()->user()->role == 'staff' && $label == __('dashboard.active_user')))
                 <div class="dropdown">
                     <button class="btn p-0" type="button" id="cardOpt3" data-bs-toggle="dropdown"
                             aria-haspopup="true" aria-expanded="false">

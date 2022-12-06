@@ -38,6 +38,7 @@
     <div class="row">
         <div class="col">
             {{-- Tab --}}
+            @if(auth()->user()->role == 'admin')
             <ul class="nav nav-pills flex-column flex-md-row mb-3">
                 <li class="nav-item">
                     <a class="nav-link active" href="javascript:void(0);">{{ __('navbar.profile.profile') }}</a>
@@ -46,6 +47,7 @@
                     <a class="nav-link" href="{{ route('settings.show') }}">{{ __('navbar.profile.settings') }}</a>
                 </li>
             </ul>
+            @endif
 
             <div class="card mb-4">
                 <!-- Account -->
@@ -90,6 +92,7 @@
                 <!-- /Account -->
             </div>
 
+            @if(auth()->user()->role == 'staff')
             <div class="card">
                 <h5 class="card-header">{{ __('navbar.profile.deactivate_account') }}</h5>
                 <div class="card-body">
@@ -109,6 +112,7 @@
                     </form>
                 </div>
             </div>
+            @endif
         </div>
     </div>
 @endsection

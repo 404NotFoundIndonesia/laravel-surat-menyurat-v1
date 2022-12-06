@@ -64,12 +64,14 @@
                             <span class="align-middle">{{ __('navbar.profile.profile') }}</span>
                         </a>
                     </li>
+                    @if(auth()->user()->role == 'admin')
                     <li>
                         <a class="dropdown-item" href="{{ route('settings.show') }}">
                             <i class="bx bx-cog me-2"></i>
                             <span class="align-middle">{{ __('navbar.profile.settings') }}</span>
                         </a>
                     </li>
+                    @endif
                     {{--                    <li>--}}
                     {{--                        <a class="dropdown-item" href="#">--}}
                     {{--                                        <span class="d-flex align-items-center align-middle">--}}
