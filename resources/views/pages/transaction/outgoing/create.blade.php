@@ -6,7 +6,6 @@
     </x-breadcrumb>
 
     <div class="card mb-4">
-        {{ $errors }}
         <form action="{{ route('transaction.outgoing.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="card-body row">
