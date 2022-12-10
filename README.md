@@ -10,7 +10,29 @@ Web app untuk mengelola surat masuk, keluar, serta disposisinya.
 
 ## Installation / Instalasi
 Direkomendasikan menggunakan php > 8.1.0. Pastikan repo ini telah diclone, kemudian buka CLI dan posisikan direktori aktif ke repo ini.
-Kemudian jalankan perintah berikut untuk menginstal dependensi php
+Silakan pilih salah satu dari dua cara di bawah ini.
+
+### Makefile Setup
+Jalankan perintah berikut untuk setup awal
+```
+make setup
+```
+Pastikan Anda telah membuat database baru di MySQL dan silakan sesuaikan file `.env` dengan database Anda.
+Jalankan perintah berikut untuk setup database 
+```
+make setup-db
+```
+Atau jalankan perintah berikut untuk setup database beserta data _dummy_
+```
+make setup-dummy
+```
+Terakhir, jalankan perintah berikut untuk menjalankan web app
+```
+make run
+```
+
+### Manual Setup
+Jalankan perintah berikut untuk menginstal dependensi php
 ```
 composer install
 ```
@@ -48,6 +70,28 @@ Terakhir, jalankan perintah berikut untuk menyalakan web server bawaan laravel
 php artisan serve
 ```
 Setelah perintah di atas dijalankan, web app Anda bisa sudah bisa diakses
+
+## Login
+Untuk login aplikasi silakan masukkan surel dan kata sandi berikut
+
+| Surel      | admin@admin.com |
+|------------|-----------------|
+| Kata Sandi | admin           |
+
+## Language / Bahasa
+Tersedia 2 pilihan bahasa untuk web app ini, bahasa Indonesia dan Inggris.
+Untuk menggantinya, buka file `config/app.php` kemudian ganti nilai pada `locale` menjadi `id` atau `en`.
+
+## Timezone / Zona Waktu
+Untuk mengganti zona waktu silakan buka file `config/app.php`
+dan ganti nilai pada `timezone` sesuai dengan keinginan Anda.
+Silakan merujuk ke [dokumentasi php](https://www.php.net/manual/en/timezones.php) untuk nilai zona waktu yang bisa digunakan.
+
+## Demonstration / Demo
+Link video untuk proyek ini bisa dilihat di [YouTube](https://www.youtube.com/watch?v=dyatVEGavxo).
+
+## Other / Lainnya
+Proyek ini menggunakan admin template [Sneat](https://github.com/themeselection/sneat-html-admin-template-free)
 
 ## License / Lisensi
 
